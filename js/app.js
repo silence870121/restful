@@ -13,11 +13,23 @@ Vue.createApp({
             axios.get(hexAPI + 'rooms')
                 .then((res) => {
                     // The F2E的 API文件寫的是 item，實際取回的是 items
-
                     console.log(res.data.items[0])
-
                     this.roomData = res.data.items
                 })
+        },
+        navBTN() {
+            const menu = document.querySelector('.menu')
+            menu.classList.toggle('menu-active')
+        },
+        closeNav(e) {
+            const menu = document.querySelector('.menu')
+            const menuBar = document.querySelector('.menu-bar')
+            const burger = document.querySelector('.burger')
+            if (menu.classList.contains('menu-active')) {
+                if (e.target !== menuBar && e.target !== burger) {
+                    menu.classList.remove('menu-active')
+                }
+            }
         }
     },
     mounted() {

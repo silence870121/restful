@@ -128,10 +128,13 @@ nav {
     position: fixed;
     top: 0;
     width: 100%;
-    background-color: hsl(0, 0%, 100%, 0.75);
-    backdrop-filter: blur(4px);
     color: var(--color-primary);
+}
+
+.nav-bar {
     padding: 0.5rem;
+    backdrop-filter: blur(4px);
+    background-color: hsl(0, 0%, 100%, 0.75);
 }
 
 .logo {
@@ -151,15 +154,33 @@ nav {
 }
 
 .menu {
-    width: 100%;
-    padding: 1rem;
-    height: 50vh;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    flex-direction: column;
-    padding-bottom: 5rem;
-    display: none;
+    height: 0;
+    overflow: hidden;
+    transition: all 200ms ease;
+}
+
+.menu-active {
+    height: 100vh;
+}
+
+.menu-bar {
+    /* width: 100%; */
+    /* height: 50vh; */
+    margin-right: auto;
+    padding-top: 1rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    padding-bottom: 2rem;
+    backdrop-filter: blur(4px);
+    background-color: hsl(0, 0%, 100%, 0.75);
+}
+
+
+.menu-bar li {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    padding-left: 4rem;
+    padding-right: 4rem;
 }
 
 nav .contact {
@@ -178,7 +199,7 @@ nav .contact {
 /*? ---------- ---------- Main ---------- ---------- */
 /*? ---------- ---------- Main ---------- ---------- */
 /*? ---------- ---------- Main ---------- ---------- */
-#app .title {
+main .title {
     font-family: "Times New Roman", serif;
     color: var(--color-primary);
     font-size: 2rem;
@@ -186,7 +207,7 @@ nav .contact {
     padding-bottom: 2rem;
 }
 
-#app .title::after, #app .title::before {
+main .title::after, main .title::before {
     display: inline-block;
     content: " ";
     width: 2rem;
@@ -221,14 +242,97 @@ nav .contact {
     display: flex;
     justify-content: space-around;
     align-items: center;
+    flex-direction: column;
+    flex-wrap: wrap;
 }
 
 .room {
-    width: 25%;
+    width: 100%;
     border: 1px solid var(--color-primary);
-    height: 30rem;
+    height: 56.25vw;
     background-position: center 75%;
     background-size: cover;
+    margin-bottom: 2rem;
+}
+
+.room-info {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to right,
+            hsla(0, 0%, 100%, 0),
+            hsla(0, 0%, 100%, 0.75)50%,
+            hsla(0, 0%, 100%, 1));
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    flex-direction: column;
+    font-family: "Times New Roman", serif;
+    color: var(--color-primary);
+    transition: background 400ms ease;
+    position: relative;
+}
+
+.room-info>* {
+    transition: all 400ms ease;
+    z-index: 1;
+}
+
+.room-info h2 {
+    width: 50%;
+    text-align: left;
+    font-size: 1.5rem;
+    padding-bottom: 1rem;
+    /* border: 1px solid var(--color-primary); */
+}
+
+.room-info p {
+    width: 50%;
+    padding-right: 1rem;
+    padding-bottom: 1rem;
+}
+
+.room-info button {
+    font-family: "Times New Roman", serif;
+    text-transform: uppercase;
+    margin-right: 10%;
+    color: unset;
+    border: unset;
+    background-color: unset;
+    height: 0;
+    overflow: hidden;
+}
+
+.room-info::before {
+    position: absolute;
+    content: "";
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    background: linear-gradient(to right,
+            hsla(225, 20%, 20%, 0),
+            hsla(225, 20%, 20%, 0.75)50%,
+            hsla(225, 20%, 20%, 1));
+    opacity: 0;
+    transition: opacity 200ms ease;
+}
+
+.room-info:hover {
+    color: var(--color-on-primary);
+    background: unset;
+}
+
+.room-info:hover::before {
+    opacity: 100;
+}
+
+.room-info:hover button {
+    padding: 0.5rem 1rem;
+    height: auto;
+    background-color: #fff;
+    border: 1px solid var(--color-primary);
+    color: var(--color-primary);
+    cursor: pointer;
 }
 
 /*? ---------- ---------- footer ---------- ---------- */

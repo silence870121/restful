@@ -15,71 +15,81 @@
         <strong>We're sorry but restful doesn't work properly without JavaScript enabled. Please enable it to
             continue.</strong>
     </noscript>
-
-    <header>
-        <div class="title container">
-            <small>We create luxury</small>
-            <h2>Luxury <span> real estate</span></h2>
-            <p>Lorem ipsum dolor sit amet, <span>consectetur adipiscing elit. </span> </p>
-        </div>
-        <nav>
-            <div class="container">
-                <div class="burger">
-                    .
-                </div>
-
-                <h1 class="logo"><a href="#">RESTful</a></h1>
-                <ul class="contact">
-                    <li>RESTful address</li>
-                    <li>+886 000-000-000</li>
-                </ul>
-                <ul class="menu">
-                    <li>room</li>
-                    <li>room</li>
-                    <li>room</li>
-                    <li>room</li>
-                    <li>room</li>
-                    <li>room</li>
-                </ul>
-            </div>
-        </nav>
-    </header>
-    <!--? ---------- ---------- main ---------- ----------  -->
     <div id="app">
-        <section class="section ">
-            <div class="container">
-                <h2 class="title">Class series</h2>
-                <ul class="room-list">
-                    <template v-for="(item,index) in roomData">
-                        <li v-if="index%2 ==0" class="room"
-                            :style="{'background-image': 'url(' + item.imageUrl + ')' }">
-                            {{index}}
-
-                        </li>
-                    </template>
-
-                </ul>
+        <header>
+            <div class="title container">
+                <small>We create luxury</small>
+                <h2>Luxury <span> real estate</span></h2>
+                <p>Lorem ipsum dolor sit amet, <span>consectetur adipiscing elit. </span> </p>
             </div>
-        </section>
-        <section class="section section-deluxe">
-            <div class="container">
-                <h2 class="title">Deluxe series</h2>
-                <ul class="room-list">
-                    <template v-for="(item,index) in roomData">
-                        <li v-if="index%2 ==1" class="room"
-                            :style="{'background-image': 'url(' + item.imageUrl + ')' }">
-                            {{index}}
-                        </li>
-                    </template>
-                </ul>
-            </div>
-        </section>
-        <section class="section">
-            <div class="container">
-                <h2 class="title">Testimonials</h2>
+            <nav>
+                <div class="nav-bar">
+                    <div class="container">
+                        <div class="burger" @click="navBTN">
+                            .
+                        </div>
+                        <h1 class="logo"><a href="#">RESTful</a></h1>
+                        <ul class="contact">
+                            <li>RESTful address</li>
+                            <li>+886 000-000-000</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="menu" @click="closeNav">
+                    <div class="container">
+                        <ul class="menu-bar">
+                            <li v-for="item in roomData" :key="item.id">
+                                {{item.name}}
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <!--? ---------- ---------- main ---------- ----------  -->
+        <main>
+            <section class="section ">
+                <div class="container">
+                    <h2 class="title">Class series</h2>
+                    <ul class="room-list">
+                        <template v-for="(item,index) in roomData">
+                            <li v-if="index%2 ==0" class="room"
+                                :style="{'background-image': 'url(' + item.imageUrl + ')' }">
+                                <div class="room-info">
+                                    <h2> {{item.name}} </h2>
+                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+                                    <button>View Detail</button>
+                                </div>
+                            </li>
+                        </template>
 
-            </div>
-        </section>
+                    </ul>
+                </div>
+            </section>
+            <section class="section section-deluxe">
+                <div class="container">
+                    <h2 class="title">Deluxe series</h2>
+                    <ul class="room-list">
+                        <template v-for="(item,index) in roomData">
+                            <li v-if="index%2 ==1" class="room"
+                                :style="{'background-image': 'url(' + item.imageUrl + ')' }">
+                                <div class="room-info">
+                                    <h2> {{item.name}} </h2>
+                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+                                    <button>View Detail</button>
+                                </div>
+                            </li>
+                        </template>
+                    </ul>
+                </div>
+            </section>
+            <section class="section">
+                <div class="container">
+                    <h2 class="title">Testimonials</h2>
+
+                </div>
+            </section>
+        </main>
     </div>
     <!--? ---------- ---------- main end ---------- ---------- -->
     <footer>
