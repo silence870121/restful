@@ -59,7 +59,6 @@ img {
 }
 
 /** start index css */
-
 :root {
     --color-primary: hsla(45, 50%, 50%, 1);
     --color-primary-variant: hsla(45, 50%, 20%, 1);
@@ -69,8 +68,6 @@ img {
 
     --color-on-primary: hsl(0, 0%, 100%);
 }
-
-body {}
 
 /*? ---------- ---------- header ---------- ---------- */
 /*? ---------- ---------- header ---------- ---------- */
