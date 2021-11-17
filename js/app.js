@@ -2,19 +2,40 @@ Vue.createApp({
     data() {
         return {
             title: "RESTful",
-            roomData: []
+            roomData: [],
+            roomItem: [],
+            oneRoom: {
+                status: "",
+                imgIndex: 0,
+            },
         }
     },
     methods: {
-        getAPI() {
+        getRoomsAllData() {
             const hexAPI = 'https://challenge.thef2e.com/api/thef2e2019/stage6/'
             const token = 'aTXLTsqJGnHCcyEkIF6mM5EW6NdJMaluqX0dD5BpQS5qk0NO67goQ232Mv4I'
             axios.defaults.headers.common.Authorization = `Bearer ${token}`
             axios.get(hexAPI + 'rooms')
                 .then((res) => {
-                    // The F2E的 API文件寫的是 item，實際取回的是 items
-                    console.log(res.data.items[0])
+                    // console.log(res.data.items[0])
                     this.roomData = res.data.items
+                    // console.log(this.roomData);
+                })
+        },
+        getRoomsData() {
+            //? GET room.html/roomID=?
+            // const locationURL = new URL(location.href)
+            const hexAPI = 'https://challenge.thef2e.com/api/thef2e2019/stage6/'
+            const roomID = new URL(location.href).searchParams.get('roomID')
+            const token = 'aTXLTsqJGnHCcyEkIF6mM5EW6NdJMaluqX0dD5BpQS5qk0NO67goQ232Mv4I'
+            axios.defaults.headers.common.Authorization = `Bearer ${token}`
+            axios.get(hexAPI + 'room/' + roomID)
+                .then((res) => {
+
+                    // console.log(res.data)
+                    // console.log(res.data.room)
+                    this.roomItem = res.data
+                    console.log(this.roomItem);
                 })
         },
         navBTN() {
@@ -33,6 +54,7 @@ Vue.createApp({
         }
     },
     mounted() {
-        this.getAPI()
+        this.getRoomsData()
+        this.getRoomsAllData()
     }
 }).mount('#app');

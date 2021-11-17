@@ -70,57 +70,16 @@ img {
     --color-on-secondary: hsl(225, 100%, 90%);
 }
 
+body {
+    font-family: "Times New Roman",
+        -apple-system, BlinkMacSystemFont,
+        'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell,
+        'Open Sans', 'Helvetica Neue', sans-serif, serif;
+}
+
 /*? ---------- ---------- header ---------- ---------- */
 /*? ---------- ---------- header ---------- ---------- */
 /*? ---------- ---------- header ---------- ---------- */
-
-header {
-    width: 100%;
-    height: 100vh;
-    background-image: linear-gradient(to right bottom, hsl(0, 0%, 100%),
-            hsla(0, 0%, 100%, 0.75), hsla(0, 0%, 100%, 0)),
-        url('/img/rooms/05.Twin\ Room\ \(2\).jfif');
-    background-color: white;
-    background-size: cover;
-    background-position: center 90%;
-    background-repeat: no-repeat;
-    font-family: "Times New Roman", serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 0 3rem;
-}
-
-.title small, .title h2 {
-    color: var(--color-primary);
-    width: 100%;
-}
-
-.title small {
-    font-size: 1.5rem;
-    white-space: nowrap;
-}
-
-.title h2 span {
-    white-space: nowrap;
-    font-size: 2.5rem;
-}
-
-.title h2 {
-    font-size: 2.5rem;
-    text-transform: uppercase;
-    padding-bottom: 0.5rem;
-}
-
-.title p {
-    width: 100%;
-    padding-top: 0.25rem;
-    color: var(--color-secondary-variant);
-}
-
-header span {
-    white-space: nowrap;
-}
 
 nav {
     position: fixed;
@@ -195,9 +154,73 @@ nav .contact {
     text-transform: uppercase;
 }
 
+/*? ----------  homepage  ---------- */
+.homepage {
+    width: 100%;
+    height: 100vh;
+    background-image: linear-gradient(to right bottom, hsl(0, 0%, 100%),
+            hsla(0, 0%, 100%, 0.75), hsla(0, 0%, 100%, 0)),
+        url('/img/rooms/05.Twin\ Room\ \(2\).jfif');
+    background-color: white;
+    background-size: cover;
+    background-position: center 90%;
+    background-repeat: no-repeat;
+    font-family: "Times New Roman", serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 3rem;
+}
+
+.title small, .title h2 {
+    color: var(--color-primary);
+    width: 100%;
+}
+
+.title small {
+    font-size: 1.5rem;
+    white-space: nowrap;
+}
+
+.title h2 span {
+    white-space: nowrap;
+    font-size: 2.5rem;
+}
+
+.title h2 {
+    font-size: 2.5rem;
+    text-transform: uppercase;
+    padding-bottom: 0.5rem;
+}
+
+.title p {
+    width: 100%;
+    padding-top: 0.25rem;
+    color: var(--color-secondary-variant);
+}
+
+.homepage span {
+    white-space: nowrap;
+}
+
+/*? ----------  homepage End  ---------- */
+/*? ----------  roompage  ---------- */
+.roompage {
+    width: 100%;
+    height: auto;
+    font-family: "Times New Roman", serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 3rem;
+    /* margin-top: 2rem; */
+}
+
+/*? ----------  roompage End  ---------- */
 /*? ---------- ---------- Main ---------- ---------- */
 /*? ---------- ---------- Main ---------- ---------- */
 /*? ---------- ---------- Main ---------- ---------- */
+/*? ----------  homepage  ---------- */
 main .title {
     font-family: "Times New Roman", serif;
     color: var(--color-primary);
@@ -236,7 +259,7 @@ main .title::after, main .title::before {
     background-repeat: no-repeat;
 }
 
-.room-list {
+.series-list {
     width: 100%;
     display: flex;
     justify-content: space-around;
@@ -245,16 +268,15 @@ main .title::after, main .title::before {
     flex-wrap: wrap;
 }
 
-.room {
+.series {
     width: 100%;
-    border: 1px solid var(--color-primary);
     height: 45vw;
     background-position: center 75%;
     background-size: cover;
     margin-bottom: 3rem;
 }
 
-.room-info {
+.series-info {
     width: 100%;
     height: 100%;
     background: linear-gradient(to right,
@@ -269,14 +291,15 @@ main .title::after, main .title::before {
     color: var(--color-primary);
     transition: background 400ms ease;
     position: relative;
+    border: 1px solid var(--color-primary);
 }
 
-.room-info>* {
+.series-info>* {
     transition: all 400ms ease;
     z-index: 1;
 }
 
-.room-info h2 {
+.series-info h2 {
     width: 50%;
     text-align: left;
     font-size: 1.5rem;
@@ -284,13 +307,13 @@ main .title::after, main .title::before {
     /* border: 1px solid var(--color-primary); */
 }
 
-.room-info p {
+.series-info p {
     width: 50%;
     padding-right: 1rem;
     padding-bottom: 1rem;
 }
 
-.room-info button {
+.series-info button {
     font-family: "Times New Roman", serif;
     text-transform: uppercase;
     margin-right: 10%;
@@ -301,11 +324,11 @@ main .title::after, main .title::before {
     overflow: hidden;
 }
 
-.room-info a {
+.series-info a {
     color: unset;
 }
 
-.room-info::before {
+.series-info::before {
     position: absolute;
     content: "";
     top: 0;
@@ -320,16 +343,16 @@ main .title::after, main .title::before {
     transition: opacity 200ms ease;
 }
 
-.room-info:hover {
+.series-info:hover {
     color: var(--color-on-primary);
     background: unset;
 }
 
-.room-info:hover::before {
+.series-info:hover::before {
     opacity: 100;
 }
 
-.room-info:hover button {
+.series-info:hover button {
     padding: 0.5rem 1rem;
     height: auto;
     background-color: #fff;
@@ -478,6 +501,201 @@ main .title::after, main .title::before {
     cursor: pointer;
 }
 
+/*? ----------  homepage End  ---------- */
+/*? ----------  roompage  ---------- */
+
+.preview {
+    width: 100%;
+    height: 85vw;
+    max-height: 90vh;
+    position: relative;
+}
+
+.preview-inner {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.preview-inner img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    opacity: 0;
+    transition: opacity 200ms ease;
+}
+
+.preview-inner .active {
+    opacity: 1;
+}
+
+.preview-bar {
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.5rem 0;
+    background-color: hsla(45, 50%, 90%, 0.75);
+    backdrop-filter: blur(16px);
+}
+
+.preview-bar li {
+    width: 33%;
+    height: 17.5vw;
+    max-height: 20vh;
+    padding: 0.5rem;
+}
+
+.preview-bar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* position: absolute; */
+    opacity: 0.5;
+    transition: opacity 200ms ease;
+    cursor: pointer;
+}
+
+.preview-bar .active {
+    opacity: 1;
+    position: relative;
+    box-shadow: 0 0 0 2px var(--color-primary);
+}
+
+.preview-bar img:hover {
+    opacity: 1;
+}
+
+.room {
+    width: 100%;
+
+}
+
+.room-title {
+    width: 100%;
+    text-transform: uppercase;
+    color: var(--color-primary);
+    font-size: 2rem;
+    margin-top: 3rem;
+    margin-bottom: 1rem;
+    text-align-last: left;
+}
+
+.room p {
+    color: var(--color-secondary-variant);
+    margin-bottom: 2rem;
+    padding: 0.5rem;
+}
+
+.room-info {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 1rem 0.5rem;
+}
+
+.room-info li {
+    width: 50%;
+    /* border: 1px solid var(--color-primary-variant); */
+    margin-bottom: 1rem;
+    padding: 1rem;
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    padding-left: 4rem;
+    text-transform: uppercase;
+}
+
+.room-info svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4rem;
+    height: 4rem;
+    margin: 0.25rem 0;
+    /* border: 1px solid var(--color-primary-variant); */
+    color: var(--color-secondary);
+    color: var(--color-primary-variant);
+}
+
+.room-info li h3 {
+    width: 100%;
+    padding-bottom: 0.5rem;
+    color: var(--color-primary);
+    font-weight: bold;
+}
+
+.room-info li p {
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    padding-left: 0.5rem;
+}
+
+
+.price {
+    background-color: var(--color-primary-variant);
+    color: var(--color-on-primary);
+    padding: 4rem 0;
+}
+
+.price .container {
+    justify-content: space-around;
+}
+
+.price-part {
+    min-width: 20rem;
+    width: 25%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+.price-part span {
+    width: 100%;
+    font-size: 1.5rem;
+    padding-bottom: 0.5rem;
+}
+
+.price-part p {
+    width: 100%;
+    text-align: right;
+    font-size: 3rem;
+    width: 100%;
+}
+
+.price-btn {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+.price-btn button {
+    width: 75%;
+    font-size: 1.5rem;
+    padding: 0.5rem;
+    color: var(--color-on-primary);
+    border: 2px solid var(--color-primary);
+    background-image: linear-gradient(to right bottom,
+            hsla(45, 50%, 20%, 0.75),
+            hsla(45, 50%, 20%, 0.75)),
+        url('/img/golden-white-marble-textured-background.jpg');
+    background-size: cover;
+    cursor: pointer;
+}
+
+/*? ----------  roompage End  ---------- */
 /*? ---------- ---------- footer ---------- ---------- */
 /*? ---------- ---------- footer ---------- ---------- */
 /*? ---------- ---------- footer ---------- ---------- */

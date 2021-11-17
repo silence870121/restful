@@ -16,7 +16,7 @@
             continue.</strong>
     </noscript>
     <div id="app">
-        <header>
+        <header class="homepage">
             <div class="title container">
                 <small>We create luxury</small>
                 <h2>Luxury <span> real estate</span></h2>
@@ -51,11 +51,11 @@
             <section class="section ">
                 <div class="container">
                     <h2 class="title">Class series</h2>
-                    <ul class="room-list">
+                    <ul class="series-list">
                         <template v-for="(item,index) in roomData">
-                            <li v-if="index%2 ==0" class="room"
+                            <li v-if="index%2 ==0" class="series"
                                 :style="{'background-image': 'url(' + item.imageUrl + ')' }">
-                                <div class="room-info">
+                                <div class="series-info ">
                                     <h2> {{item.name}} </h2>
                                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
                                     <button>
@@ -64,18 +64,17 @@
                                 </div>
                             </li>
                         </template>
-
                     </ul>
                 </div>
             </section>
             <section class="section section-deluxe">
                 <div class="container">
                     <h2 class="title">Deluxe series</h2>
-                    <ul class="room-list">
+                    <ul class="series-list">
                         <template v-for="(item,index) in roomData">
-                            <li v-if="index%2 ==1" class="room"
+                            <li v-if="index%2 ==1" class="series"
                                 :style="{'background-image': 'url(' + item.imageUrl + ')' }">
-                                <div class="room-info">
+                                <div class="series-info ">
                                     <h2> {{item.name}} </h2>
                                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
                                     <button>
