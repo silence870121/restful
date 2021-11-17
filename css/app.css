@@ -67,6 +67,7 @@ img {
     --color-secondary-variant: hsla(225, 20%, 20%, 1);
 
     --color-on-primary: hsl(0, 0%, 100%);
+    --color-on-secondary: hsl(225, 100%, 90%);
 }
 
 /*? ---------- ---------- header ---------- ---------- */
@@ -126,6 +127,7 @@ nav {
     top: 0;
     width: 100%;
     color: var(--color-primary);
+    z-index: 9999;
 }
 
 .nav-bar {
@@ -200,8 +202,8 @@ main .title {
     font-family: "Times New Roman", serif;
     color: var(--color-primary);
     font-size: 2rem;
-    padding-top: 3rem;
-    padding-bottom: 2rem;
+    padding-top: 4rem;
+    padding-bottom: 3rem;
 }
 
 main .title::after, main .title::before {
@@ -216,7 +218,7 @@ main .title::after, main .title::before {
 }
 
 .section {
-    padding-bottom: 5rem;
+    padding-bottom: 3rem;
 }
 
 .section h2 {
@@ -246,10 +248,10 @@ main .title::after, main .title::before {
 .room {
     width: 100%;
     border: 1px solid var(--color-primary);
-    height: 56.25vw;
+    height: 45vw;
     background-position: center 75%;
     background-size: cover;
-    margin-bottom: 2rem;
+    margin-bottom: 3rem;
 }
 
 .room-info {
@@ -299,6 +301,10 @@ main .title::after, main .title::before {
     overflow: hidden;
 }
 
+.room-info a {
+    color: unset;
+}
+
 .room-info::before {
     position: absolute;
     content: "";
@@ -332,11 +338,151 @@ main .title::after, main .title::before {
     cursor: pointer;
 }
 
+.carousel {
+    width: 100%;
+    position: relative;
+}
+
+.carousel-inner {
+    width: 100%;
+    position: relative;
+}
+
+.carousel-item {
+    height: 40vw;
+    max-height: 20rem;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.carousel-item::before {
+    position: absolute;
+    content: "";
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    background: linear-gradient(to right,
+            hsla(225, 20%, 20%, 0),
+            hsla(225, 20%, 20%, 0.9)33%,
+            hsla(225, 20%, 20%, 1));
+}
+
+.carousel-item p {
+    font-family: 'Times New Roman', Times, serif;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 60%;
+    padding: 1rem;
+    padding-bottom: 1rem;
+    color: var(--color-on-primary);
+}
+
+.carousel-indicators {
+    position: absolute;
+    bottom: 0;
+    transform: translateX(-50%) translateY(-100%);
+    display: flex;
+    z-index: 1;
+    left: 50%;
+    padding: 0.25rem;
+}
+
+.carousel-indicators .active {
+    background-color: var(--color-on-secondary);
+
+}
+
+.carousel-indicators li {
+    padding: 0.25rem;
+    margin: 0.25rem;
+    border-radius: 50%;
+    background-color: var(--color-secondary);
+    cursor: pointer;
+}
+
+.carousel-control {
+    position: absolute;
+    width: 25%;
+    height: 100%;
+    background: unset;
+    border: unset;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.carousel-control::before {
+    position: absolute;
+    content: "";
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    opacity: 0;
+    transition: opacity 200ms ease;
+}
+
+.carousel-control:hover::before, .carousel-control:hover span {
+    opacity: 1;
+}
+
+.carousel-control--prev {
+    left: 0;
+    justify-content: flex-start;
+}
+
+.carousel-control--next {
+    right: 0;
+    justify-content: flex-end;
+}
+
+.carousel-control--prev::before {
+    background: linear-gradient(to right,
+            hsl(225, 20%, 50%, 0.5),
+            hsla(0, 0%, 100%, 0));
+}
+
+.carousel-control--next::before {
+    background: linear-gradient(to left,
+            hsl(225, 20%, 50%, 0.5),
+            hsla(0, 0%, 100%, 0));
+}
+
+.carousel-control span {
+    color: var(--color-on-secondary);
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: bold;
+    font-size: 2rem;
+    padding: 1rem;
+    transform: scaleY(250%);
+    opacity: 0;
+    transition: opacity 200ms ease;
+}
+
+.contact-btn {
+    font-family: 'Times New Roman', Times, serif;
+    text-transform: uppercase;
+    background: unset;
+    color: var(--color-primary);
+    border: 2px solid var(--color-primary);
+    font-size: 1.75rem;
+    padding: 0.5rem 1.5rem;
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+    cursor: pointer;
+}
+
 /*? ---------- ---------- footer ---------- ---------- */
 /*? ---------- ---------- footer ---------- ---------- */
 /*? ---------- ---------- footer ---------- ---------- */
 footer {
-    /* height: 25vw; */
+    height: 100vh;
     width: 100%;
     background-image: linear-gradient(to right bottom,
             hsl(0, 0%, 100%, 0.75),
@@ -348,6 +494,9 @@ footer {
     position: relative;
     padding: 10rem 0;
     font-family: "Times New Roman", serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 footer .title {
@@ -377,7 +526,7 @@ footer .contact li {
 .container {
     width: 100%;
     margin: auto;
-    padding: 0 0.75rem;
+    padding: 0 1rem;
     display: flex;
     justify-content: center;
     align-items: center;

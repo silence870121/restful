@@ -58,7 +58,9 @@
                                 <div class="room-info">
                                     <h2> {{item.name}} </h2>
                                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-                                    <button>View Detail</button>
+                                    <button>
+                                        <a :href="'./room.html?roomID='+ item.id"> View Detail </a>
+                                    </button>
                                 </div>
                             </li>
                         </template>
@@ -76,7 +78,9 @@
                                 <div class="room-info">
                                     <h2> {{item.name}} </h2>
                                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-                                    <button>View Detail</button>
+                                    <button>
+                                        <a :href="'./room.html?roomID='+ item.id"> View Detail </a>
+                                    </button>
                                 </div>
                             </li>
                         </template>
@@ -86,18 +90,48 @@
             <section class="section">
                 <div class="container">
                     <h2 class="title">Testimonials</h2>
-
+                    <div class="carousel">
+                        <ul class="carousel-indicators">
+                            <li class="active"></li>
+                            <li></li>
+                            <li></li>
+                            <li></li>
+                            <li></li>
+                        </ul>
+                        <ul class="carousel-inner">
+                            <li class="carousel-item"
+                                style="background-image: url('/img/rooms/05.Twin Room (0).jfif');">
+                                <!-- <img src="/img/rooms/05.Twin Room (0).jfif" alt="..."> -->
+                                <p>
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ornare vitae nam facilisis
+                                    volutpat, consequat ornare sit iaculis consectetur.
+                                </p>
+                            </li>
+                        </ul>
+                        <button class="carousel-control carousel-control--prev">
+                            <span>&lt;</span>
+                        </button>
+                        <button class="carousel-control carousel-control--next">
+                            <span> &gt;</span>
+                        </button>
+                        <!--? carousel end -->
+                    </div>
+                    <button class="contact-btn">
+                        Contact Us
+                    </button>
                 </div>
             </section>
         </main>
     </div>
     <!--? ---------- ---------- main end ---------- ---------- -->
     <footer>
-        <h2 class="title">RESTful</h2>
-        <ul class="contact">
-            <li>RESTful address</li>
-            <li>+886 000-000-000</li>
-        </ul>
+        <div class="container">
+            <h2 class="title">RESTful</h2>
+            <ul class="contact">
+                <li>RESTful address</li>
+                <li>+886 000-000-000</li>
+            </ul>
+        </div>
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://unpkg.com/vue@next"></script>
