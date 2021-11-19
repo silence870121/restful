@@ -23,7 +23,7 @@
                         <div class="burger" @click="navBTN">
                             .
                         </div>
-                        <h1 class="logo"><a href="#">RESTful</a></h1>
+                        <h1 class="logo"><a href="./index.html">RESTful</a></h1>
                         <ul class="contact">
                             <li>RESTful address</li>
                             <li>+886 000-000-000</li>
@@ -130,9 +130,92 @@
                             <p> - {{room.checkInAndOut.checkOut}} AM</p>
                         </li>
                     </ul>
-
+                    <ul class="room-service">
+                        <template v-for="(service, index, num) in room.amenities">
+                            <li class="room-service-item" v-if="service">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"
+                                    fill="currentColor">
+                                    <path :d="amenities[num].icon" fill="#currentColor" />
+                                </svg>
+                                <span> {{amenities[num].item}} </span>
+                            </li>
+                            <li class="room-service-item disabled" v-else>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"
+                                    fill="currentColor">
+                                    <path :d="amenities[num].icon" fill="#currentColor" />
+                                </svg>
+                                <span> {{amenities[num].item}} </span>
+                            </li>
+                        </template>
+                    </ul>
 
                 </div>
+            </section>
+            <section class="section container">
+                <div class="booking">
+                    <h2>空房查詢</h2>
+                </div>
+                <div class="calendar">
+                    <h3>{{format.month[calendar.current.month]}} {{calendar.year}}</h3>
+                    <ul class="calendar-week">
+                        <li>Sun.</li>
+                        <li>Mon.</li>
+                        <li>Tue.</li>
+                        <li>Wed.</li>
+                        <li>Thu.</li>
+                        <li>Fri.</li>
+                        <li>Sat.</li>
+                    </ul>
+                    <ul class="calendar-inner">
+                        <li v-for="date in calendar.current.date" :key="date">
+                            <button v-if="parseInt(date.split('-')[1]) !== (calendar.current.month + 1)"
+                                class="disabled">{{date.split('-')[2]}}</button>
+                            <button v-else-if="date == calendar.today" class="active">{{date.split('-')[2]}}</button>
+                            <button v-else>{{date.split('-')[2]}}</button>
+                        </li>
+                    </ul>
+                </div>
+
+
+                <div class="calendar">
+                    <h3>{{format.month[calendar.next.month]}} {{calendar.year}}</h3>
+                    <ul class="calendar-week">
+                        <li>Sun.</li>
+                        <li>Mon.</li>
+                        <li>Tue.</li>
+                        <li>Wed.</li>
+                        <li>Thu.</li>
+                        <li>Fri.</li>
+                        <li>Sat.</li>
+                    </ul>
+                    <ul class="calendar-inner">
+                        <li v-for="date in calendar.next.date" :key="date">
+                            <button v-if="parseInt(date.split('-')[1]) !== (calendar.next.month + 1)"
+                                class="disabled">{{date.split('-')[2]}}</button>
+                            <button v-else-if="date == calendar.today" class="active">{{date.split('-')[2]}}</button>
+                            <button v-else>{{date.split('-')[2]}}</button>
+                        </li>
+                    </ul>
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             </section>
 
             <section class="section price">
