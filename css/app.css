@@ -400,18 +400,19 @@ main .title::after, main .title::before {
     transform: translateY(-50%);
     width: 60%;
     padding: 1rem;
-    padding-bottom: 1rem;
+    padding-bottom: 2rem;
     color: var(--color-on-primary);
 }
 
 .carousel-indicators {
     position: absolute;
     bottom: 0;
-    transform: translateX(-50%) translateY(-100%);
+    transform: translateX(-50%);
     display: flex;
     z-index: 1;
     left: 50%;
     padding: 0.25rem;
+    margin: 0.5rem;
 }
 
 .carousel-indicators .active {
@@ -678,7 +679,7 @@ main .title::after, main .title::before {
     flex-wrap: wrap;
 }
 
-.booking h2 {
+.booking h3 {
     width: 100%;
     font-size: 1.5rem;
     color: var(--color-primary);

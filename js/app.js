@@ -127,8 +127,7 @@ Vue.createApp({
                     // console.log(res.data)
                     // console.log(res.data.room)
                     this.roomItem = res.data
-                    console.log(this.roomItem.room[0].amenities);
-                    console.log(Object.keys(this.roomItem.room[0].amenities)[0]);
+                    console.log(this.roomItem.room[0]);
                 })
         },
         getCalender() {
@@ -139,28 +138,20 @@ Vue.createApp({
 
             const currentFirst = new Date(year, currentMonth, 1)
             const nextFirst = new Date(year, nextMonth, 1)
-            // console.log(DayFrom);
-            console.log(currentFirst);
-
-
-
             const oneDay = 24 * 60 * 60 * 1000;
             this.calendar.year = year
             this.calendar.today = this.dateFormat(today)
             this.calendar.current.month = currentMonth
             this.calendar.next.month = nextMonth
-
-
-
             for (let i = 0; i < 35; i++) {
                 let currentDay = new Date(currentFirst.getTime() + oneDay * (i - currentFirst.getDay()))
                 let nextDay = new Date(nextFirst.getTime() + oneDay * (i - nextFirst.getDay()))
-                console.log(this.dateFormat(currentDay), this.dateFormat(nextDay));
+                // console.log(this.dateFormat(currentDay), this.dateFormat(nextDay));
                 this.calendar.current.date.push(this.dateFormat(currentDay))
                 this.calendar.next.date.push(this.dateFormat(nextDay))
             }
-            console.log(this.calendar.current.date);
-            console.log(this.calendar.next.date);
+            // console.log(this.calendar.current.date);
+            // console.log(this.calendar.next.date);
         },
         //? ---------- Action ----------
         navBTN() {
