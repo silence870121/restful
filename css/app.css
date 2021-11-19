@@ -762,6 +762,7 @@ main .title::after, main .title::before {
     color: var(--color-secondary-variant);
     opacity: 0.25;
     background-color: unset;
+    cursor: unset;
 }
 
 .price {
