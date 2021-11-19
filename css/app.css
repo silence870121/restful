@@ -518,13 +518,21 @@ main .title::after, main .title::before {
     position: relative;
 }
 
-.preview-inner img {
+.preview-inner {
     width: 100%;
     height: 100%;
+    overflow: hidden;
+}
+
+.preview-inner img {
+    min-width: 100%;
+    min-height: 100%;
+    height: auto;
     object-fit: cover;
     position: absolute;
     opacity: 0;
     transition: opacity 200ms ease;
+    bottom: 0;
 }
 
 .preview-inner .active {
@@ -558,6 +566,7 @@ main .title::after, main .title::before {
     opacity: 0.5;
     transition: opacity 200ms ease;
     cursor: pointer;
+
 }
 
 .preview-bar .active {
