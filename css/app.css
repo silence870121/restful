@@ -160,7 +160,7 @@ nav .contact {
     height: 100vh;
     background-image: linear-gradient(to right bottom, hsl(0, 0%, 100%),
             hsla(0, 0%, 100%, 0.75), hsla(0, 0%, 100%, 0)),
-        url('/img/rooms/05.Twin\ Room\ \(2\).jfif');
+        url("../img/rooms/05.Twin\ Room\ \(2\).jfif");
     background-color: white;
     background-size: cover;
     background-position: center 90%;
@@ -253,7 +253,7 @@ main .title::after, main .title::before {
     background-image: linear-gradient(to right bottom,
             hsl(0, 0%, 100%, 0.5),
             hsla(0, 0%, 100%, 0.5)),
-        url('/img/golden-white-marble-textured-background.jpg');
+        url("../img/golden-white-marble-textured-background.jpg");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -818,7 +818,7 @@ main .title::after, main .title::before {
     background-image: linear-gradient(to right bottom,
             hsla(45, 50%, 20%, 0.75),
             hsla(45, 50%, 20%, 0.75)),
-        url('/img/golden-white-marble-textured-background.jpg');
+        url("../img/golden-white-marble-textured-background.jpg");
     background-size: cover;
     cursor: pointer;
 }
@@ -833,7 +833,7 @@ footer {
     background-image: linear-gradient(to right bottom,
             hsl(0, 0%, 100%, 0.75),
             hsla(0, 0%, 100%, 0.75)),
-        url('/img/rooms/03.Double\ Room\ \(0\).jfif');
+        url("../img/rooms/03.Double\ Room\ \(0\).jfif");
     background-size: cover;
     background-position: center 90%;
     background-repeat: no-repeat;
