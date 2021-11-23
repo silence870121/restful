@@ -75,6 +75,15 @@ Vue.createApp({
                     month: 11,
                     date: [],
                 }
+            },
+            booking: {
+                name: "",
+                phoneNumber: "",
+                price: "",
+                temp: "",
+                dateFrom: "",
+                dateTo: "",
+                dateRange: [],
             }
         }
     },
@@ -102,7 +111,9 @@ Vue.createApp({
                     break;
             }
         },
-        //? ---------- getData ----------
+        //? ---------- ---------- getData ---------- ----------
+        //? ---------- ---------- getData ---------- ----------
+        //? ---------- ---------- getData ---------- ----------
         getRoomsAllData() {
             const hexAPI = 'https://challenge.thef2e.com/api/thef2e2019/stage6/'
             const token = 'aTXLTsqJGnHCcyEkIF6mM5EW6NdJMaluqX0dD5BpQS5qk0NO67goQ232Mv4I'
@@ -153,7 +164,9 @@ Vue.createApp({
             // console.log(this.calendar.current.date);
             // console.log(this.calendar.next.date);
         },
-        //? ---------- Action ----------
+        //? ---------- ---------- Action ---------- ----------
+        //? ---------- ---------- Action ---------- ----------
+        //? ---------- ---------- Action ---------- ----------
         navBTN() {
             const menu = document.querySelector('.menu')
             menu.classList.toggle('menu-active')
@@ -168,7 +181,44 @@ Vue.createApp({
                 }
             }
         },
+        //? ---------- booking ----------
+        bookingDate(date) {
+            if (new Date(date) > new Date()) {
+                //? ---------- if date in can booking range ----------
+                if (this.booking.temp == "") {
+                    console.log("this's first select");
+                    this.booking.temp = date
+                } else {
 
+                    if (new Date(this.booking.temp) < new Date(date)) {
+                        this.booking.dateFrom = this.booking.temp
+                        this.booking.dateTo = date
+                        // this.bookingRange()
+                    } else if (new Date(date) < new Date(this.booking.temp)) {
+                        this.booking.dateFrom = date
+                        this.booking.dateTo = this.booking.temp
+                        // this.bookingRange()
+                    } else {
+                        console.log("please select other date");
+                    }
+                    this.booking.temp = ""
+                }
+                console.log(new Date().getTime());
+
+                //? ---------- if date in can booking range ----------
+            }
+        },
+    },
+    computed: {
+        renderBookingRange() {
+            this.booking.dateRange = []
+            for (let i = new Date(this.booking.dateFrom).getTime(); i < new Date(this.booking.dateTo).getTime() + 1000 * 60 * 60 * 24; i += 1000 * 60 * 60 * 24) {
+                console.log("PUSH " + this.dateFormat(new Date(i)));
+                // console.log(i);
+                this.booking.dateRange.push(this.dateFormat(new Date(i)))
+            }
+            console.log(this.booking.dateRange);
+        },
     },
     mounted() {
         this.getRoomsData()
