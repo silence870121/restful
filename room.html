@@ -165,13 +165,29 @@
                             <li>Sat.</li>
                         </ul>
                         <ul class="calendar-inner">
-                            <li v-for="date in calendar.current.date" :key="date">
-                                <button v-if="parseInt(date.split('-')[1]) !== (calendar.current.month + 1)"
-                                    class="disabled">{{date.split('-')[2]}}</button>
-                                <button v-else-if="date == calendar.today"
-                                    class="active">{{date.split('-')[2]}}</button>
-                                <button v-else>{{date.split('-')[2]}}</button>
-                            </li>
+                            <template v-for="date in calendar.current.date" :key="date">
+                                <li v-if="parseInt(date.split('-')[1]) !== (calendar.current.month + 1) || new Date(date).getDate() < new Date().getDate()"
+                                    @click="bookingDate(date)">
+                                    <button class="disabled"> {{parseInt(date.split('-')[2])}} </button>
+                                </li>
+                                <li v-else @click="bookingDate(date)">
+                                    <template v-if="date ==  booking.dateFrom">
+                                        <button class="booking-datefrom"> {{parseInt(date.split('-')[2])}} </button>
+                                    </template>
+                                    <template v-else-if="date ==  booking.dateTo">
+                                        <button class="booking-dateto"> {{parseInt(date.split('-')[2])}} </button>
+                                    </template>
+                                    <template
+                                        v-else-if="new Date(booking.dateFrom) < new Date(date) && new Date(date) < new Date(booking.dateTo)">
+                                        <button class="booking-daterange"> {{parseInt(date.split('-')[2])}} </button>
+                                    </template>
+                                    <template v-else>
+                                        <button v-if="date == calendar.today" class="active">
+                                            {{parseInt(date.split('-')[2])}} </button>
+                                        <button v-else> {{parseInt(date.split('-')[2])}} </button>
+                                    </template>
+                                </li>
+                            </template>
                         </ul>
                     </div>
                     <div class="calendar">
@@ -186,13 +202,29 @@
                             <li>Sat.</li>
                         </ul>
                         <ul class="calendar-inner">
-                            <li v-for="date in calendar.next.date" :key="date">
-                                <button v-if="parseInt(date.split('-')[1]) !== (calendar.next.month + 1)"
-                                    class="disabled">{{date.split('-')[2]}}</button>
-                                <button v-else-if="date == calendar.today"
-                                    class="active">{{date.split('-')[2]}}</button>
-                                <button v-else>{{date.split('-')[2]}}</button>
-                            </li>
+                            <template v-for="date in calendar.next.date" :key="date">
+                                <li v-if="parseInt(date.split('-')[1]) !== (calendar.next.month + 1) "
+                                    @click="bookingDate(date)">
+                                    <button class="disabled"> {{parseInt(date.split('-')[2])}} </button>
+                                </li>
+                                <li v-else @click="bookingDate(date)">
+                                    <template v-if="date ==  booking.dateFrom">
+                                        <button class="booking-datefrom"> {{parseInt(date.split('-')[2])}} </button>
+                                    </template>
+                                    <template v-else-if="date ==  booking.dateTo">
+                                        <button class="booking-dateto"> {{parseInt(date.split('-')[2])}} </button>
+                                    </template>
+                                    <template
+                                        v-else-if="new Date(booking.dateFrom) < new Date(date) && new Date(date) < new Date(booking.dateTo)">
+                                        <button class="booking-daterange"> {{parseInt(date.split('-')[2])}} </button>
+                                    </template>
+                                    <template v-else>
+                                        <button v-if="date == calendar.today" class="active">
+                                            {{parseInt(date.split('-')[2])}} </button>
+                                        <button v-else> {{parseInt(date.split('-')[2])}} </button>
+                                    </template>
+                                </li>
+                            </template>
                         </ul>
                     </div>
                 </div>
