@@ -132,15 +132,16 @@ const app = Vue.createApp({
             const hexAPI = 'https://challenge.thef2e.com/api/thef2e2019/stage6/'
             const roomID = new URL(location.href).searchParams.get('roomID')
             const token = 'aTXLTsqJGnHCcyEkIF6mM5EW6NdJMaluqX0dD5BpQS5qk0NO67goQ232Mv4I'
-            axios.defaults.headers.common.Authorization = `Bearer ${token}`
-            axios.get(hexAPI + 'room/' + roomID)
-                .then((res) => {
-
-                    // console.log(res.data)
-                    // console.log(res.data.room)
-                    this.roomItem = res.data
-                    console.log(this.roomItem.room[0]);
-                })
+            if (roomID !== null) {
+                axios.defaults.headers.common.Authorization = `Bearer ${token}`
+                axios.get(hexAPI + 'room/' + roomID)
+                    .then((res) => {
+                        // console.log(res.data)
+                        // console.log(res.data.room)
+                        this.roomItem = res.data
+                        console.log(this.roomItem.room[0]);
+                    })
+            }
         },
         getCalender() {
             const today = new Date()
