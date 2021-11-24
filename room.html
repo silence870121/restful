@@ -15,6 +15,38 @@
         <strong>We're sorry but restful doesn't work properly without JavaScript enabled. Please enable it to
             continue.</strong>
     </noscript>
+    <!--! ---------- ---------- TEST MODAL ---------- ---------- -->
+    <!--! ---------- ---------- TEST MODAL ---------- ---------- -->
+    <!--! ---------- ---------- TEST MODAL ---------- ---------- -->
+    <!-- template for the modal component -->
+    <script type="text/x-template" id="modal-template">
+        <div class="modal-mask">
+            <div class="container"  @click="$emit('close')">
+                <div class="modal-container " @click.stop="modal-mask">
+                    <button class="modal-default-button" @click="$emit('close')">
+                        X
+                    </button>
+                    <div class="modal-header">
+                        <slot name="header">
+                        </slot>
+                    </div>
+
+                    <div class="modal-body">
+                        <slot name="body">
+                        </slot>
+                    </div>
+
+                    <div class="modal-footer">
+                        <slot name="footer">
+                        </slot>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </script>
+    <!--! ---------- ---------- TEST MODAL ---------- ---------- -->
+    <!--! ---------- ---------- TEST MODAL ---------- ---------- -->
+    <!--! ---------- ---------- TEST MODAL ---------- ---------- -->
     <div id="app">
         <header class="roompage">
             <nav>
@@ -246,14 +278,98 @@
                         </p>
                     </div>
                     <div class="price-btn">
-                        <button>
+                        <button id="show-modal" @click="showModal = true">
                             立刻訂房
                         </button>
                     </div>
                 </div>
             </section>
+            <!--! ---------- ---------- TEST MODAL ---------- ---------- -->
+            <!--! ---------- ---------- TEST MODAL ---------- ---------- -->
+            <!--! ---------- ---------- TEST MODAL ---------- ---------- -->
+            <!-- use the modal component, pass in the prop -->
+            <transition name="modal">
+                <modal v-if="showModal" @close="showModal = false">
+                    <!-- you can use custom content here to overwrite default content -->
+                    <template v-slot:header>
+                        <h3>Booking</h3>
+                    </template>
+                    <template v-slot:body>
+                        <h3 class="booking-title">{{room.name}}</h3>
+                        <div class="booking-info">
+                            <p>
+                                {{room.descriptionShort.GuestMin}} ~ {{room.descriptionShort.GuestMax}} 人 |
+                                {{room.descriptionShort.Bed.length}} 張床 |
+                                {{room.descriptionShort['Private-Bath']}} 間 | {{room.descriptionShort.Footage}} 平方公尺
+                            </p>
+                            <p>
+                                平日(一～四) NT$ {{room.normalDayPrice}}
+                            </p>
+                            <p>
+                                假日(五～日) NT$ {{room.holidayPrice}}
+                            </p>
+                        </div>
 
-
+                        <ul class="room-service">
+                            <template v-for="(service, index, num) in room.amenities">
+                                <li class="room-service-item" v-if="service">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"
+                                        fill="currentColor">
+                                        <path :d="amenities[num].icon" fill="#currentColor" />
+                                    </svg>
+                                    <span> {{amenities[num].item}} </span>
+                                </li>
+                                <li class="room-service-item disabled" v-else>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"
+                                        fill="currentColor">
+                                        <path :d="amenities[num].icon" fill="#currentColor" />
+                                    </svg>
+                                    <span> {{amenities[num].item}} </span>
+                                </li>
+                            </template>
+                        </ul>
+                        <h3 class="booking-title">訂房事項</h3>
+                        <ul>
+                            <li>
+                                入住時間：最早15:00，最晚21:00；<br>
+                                退房時間：10:00，請自行確認行程安排。
+                            </li>
+                            <li>
+                                平日定義為週一至週四；<br>
+                                假日定義為週五至週日以及國定假日。
+                            </li>
+                            <li>
+                                若您有任何問題，歡迎撥打 00-0000 0000 。<br>
+                                （服務時間 週一至週六 08:00 - 22:00）
+                            </li>
+                        </ul>
+                    </template>
+                    <template v-slot:footer>
+                        <form action="" class="booking-form">
+                            <label for="">訂房姓名</label>
+                            <input type="text" name="name" id="">
+                            <label for="">手機號碼</label>
+                            <input type="text" name="phone" id="">
+                            <label for="">入住日期</label>
+                            <input type="text" name="bookingdate" id="">
+                            <label for="">退房日期</label>
+                            <input type="text" name="bookingdate" id="">
+                            <span class="booking-days">
+                                3日，平日 1夜，假日 1夜
+                            </span>
+                        </form>
+                        <p class="booking-price">
+                            <span>Total</span>
+                            NT$ 9999
+                        </p>
+                        <button class="booking-btn">確認送出</button>
+                        <small>此預約系統僅預約功能，並不會對您進行收費</small>
+                    </template>
+                </modal>
+            </transition>
+            <!--! ---------- ---------- TEST MODAL ---------- ---------- -->
+            <!--! ---------- ---------- TEST MODAL ---------- ---------- -->
+            <!--! ---------- ---------- TEST MODAL ---------- ---------- -->
             <section class="section">
                 <div class="container">
                     <h2 class="title">Testimonials</h2>

@@ -1,4 +1,4 @@
-Vue.createApp({
+const app = Vue.createApp({
     data() {
         return {
             title: "RESTful",
@@ -84,7 +84,8 @@ Vue.createApp({
                 dateFrom: "",
                 dateTo: "",
                 dateRange: [],
-            }
+            },
+            showModal: true
         }
     },
     methods: {
@@ -208,6 +209,12 @@ Vue.createApp({
                 //? ---------- if date in can booking range ----------
             }
         },
+        //? ---------- modal control ----------
+
+
+
+
+
     },
     computed: {
         renderBookingRange() {
@@ -220,9 +227,24 @@ Vue.createApp({
             console.log(this.booking.dateRange);
         },
     },
+    watch: {
+        showModal() {
+            if (this.showModal) {
+                document.documentElement.style.overflow = 'hidden'
+                return
+            }
+
+            document.documentElement.style.overflow = 'auto'
+        }
+    },
     mounted() {
         this.getRoomsData()
         this.getRoomsAllData()
         this.getCalender()
     }
-}).mount('#app');
+})
+app.component("modal", {
+    template: "#modal-template",
+})
+
+app.mount('#app');
