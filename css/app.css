@@ -829,14 +829,6 @@ main .title::after, main .title::before {
     z-index: -1;
 }
 
-
-
-
-
-
-
-
-
 .price {
     background-color: var(--color-primary-variant);
     color: var(--color-on-primary);
@@ -896,7 +888,6 @@ main .title::after, main .title::before {
 
 /*? ----- MODAL ----- */
 
-
 .modal-mask {
     position: fixed;
     z-index: 9997;
@@ -912,14 +903,15 @@ main .title::after, main .title::before {
 
 .modal-container {
     width: 100%;
-    margin: 5rem 2rem;
+    max-height: calc(100vh - 10rem);
+    margin: 5rem 1rem;
     background-color: #fff;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
     position: relative;
+    overflow-y: auto;
 }
 
 .modal-header {
-    /* height: 4rem; */
     background-image: url("../img/golden-white-marble-textured-background.jpg");
     background-size: cover;
     background-repeat: no-repeat;
@@ -928,7 +920,6 @@ main .title::after, main .title::before {
 
 .modal-header>* {
     width: 100%;
-    /* height: 100%; */
     backdrop-filter: blur(4px);
 }
 
@@ -937,10 +928,26 @@ main .title::after, main .title::before {
     font-size: 2rem;
     text-align: center;
     padding: 1rem;
+    text-transform: uppercase;
 }
 
 .modal-body {
-    margin: 20px 0;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.modal-footer {
+    background-color: var(--color-primary-variant);
+    padding: 3rem;
+    color: var(--color-on-primary);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
 }
 
 .modal-default-button {
@@ -970,6 +977,151 @@ main .title::after, main .title::before {
 }
 
 /*? -----   MODAL End ----- */
+/*? -----   Booking Form  ----- */
+.booking-title {
+    width: 100%;
+    display: flex;
+    align-items: flex-end;
+    color: var(--color-primary-variant);
+    font-size: 2rem;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    padding: 0 0.75rem;
+}
+
+.booking-title::after {
+    content: '';
+    flex: 1;
+    height: 1.5px;
+    background-color: var(--color-primary);
+    margin-left: 0.5rem;
+    margin-bottom: 0.25rem;
+}
+
+.booking-info p {
+    padding: 0 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.booking-service {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    padding: 0 1rem;
+    margin-top: 1rem;
+}
+
+.booking-service .disabled {
+    opacity: 0.25;
+}
+
+
+.booking-service-item {
+    width: calc(100%/12*2);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    color: var(--color-secondary-variant);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    padding: 1rem;
+    /* margin-bottom: 1rem; */
+}
+
+.booking-service-item svg {
+    width: 2rem;
+    height: 2rem;
+    margin: 0.5rem;
+}
+
+.booking-notice {
+    width: 100%;
+    padding: 0 1rem;
+    margin-left: 1rem;
+    margin-bottom: 2rem;
+    list-style-type: square;
+    color: var(--color-primary-variant);
+    font-size: 0.875rem;
+}
+
+.booking-notice li {
+    line-height: 1.25rem;
+}
+
+.booking-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    border-bottom: 1px solid var(--color-primary);
+    margin-bottom: 1rem;
+}
+
+.booking-form>* {
+    width: 100%;
+    margin-bottom: 0.5rem;
+}
+
+.booking-form input {
+    font-size: 1rem;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.booking-days {
+    color: var(--color-primary);
+}
+
+.booking-price {
+    width: 100%;
+    padding: 1rem 0;
+    display: flex;
+    text-align: right;
+    flex-wrap: wrap;
+    text-transform: uppercase;
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: bold;
+}
+
+.booking-price>* {
+    width: 100%;
+}
+
+.booking-price small {
+    text-align: right;
+    margin-bottom: 0.5rem;
+}
+
+.booking-price span {
+    font-size: 2rem;
+}
+
+.booking-btn {
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.booking-btn button {
+    width: 100%;
+}
+
+small {
+    font-size: 0.75rem;
+    text-align: center;
+    line-height: 1rem;
+}
+
+small span {
+    white-space: nowrap;
+}
+
+/*? -----   Booking Form End ----- */
+
+
+
 
 /*? ----------  roompage End  ---------- */
 /*? ---------- ---------- ---------- footer ---------- ---------- ---------- */

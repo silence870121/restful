@@ -310,16 +310,16 @@
                             </p>
                         </div>
 
-                        <ul class="room-service">
+                        <ul class="booking-service">
                             <template v-for="(service, index, num) in room.amenities">
-                                <li class="room-service-item" v-if="service">
+                                <li class="booking-service-item" v-if="service">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"
                                         fill="currentColor">
                                         <path :d="amenities[num].icon" fill="#currentColor" />
                                     </svg>
                                     <span> {{amenities[num].item}} </span>
                                 </li>
-                                <li class="room-service-item disabled" v-else>
+                                <li class="booking-service-item disabled" v-else>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"
                                         fill="currentColor">
                                         <path :d="amenities[num].icon" fill="#currentColor" />
@@ -329,17 +329,17 @@
                             </template>
                         </ul>
                         <h3 class="booking-title">訂房事項</h3>
-                        <ul>
+                        <ul class="booking-notice">
                             <li>
                                 入住時間：最早15:00，最晚21:00；<br>
                                 退房時間：10:00，請自行確認行程安排。
                             </li>
                             <li>
-                                平日定義為週一至週四；<br>
-                                假日定義為週五至週日以及國定假日。
+                                平日定義為 週一至週四 ；<br>
+                                假日定義為 週五至週日 以及 國定假日。
                             </li>
                             <li>
-                                若您有任何問題，歡迎撥打 00-0000 0000 。<br>
+                                若您有任何問題，歡迎撥打 00-0000 0000<br>
                                 （服務時間 週一至週六 08:00 - 22:00）
                             </li>
                         </ul>
@@ -359,11 +359,20 @@
                             </span>
                         </form>
                         <p class="booking-price">
-                            <span>Total</span>
-                            NT$ 9999
+                            <small>Total</small>
+                            <span> NT$ 9,999 </span>
                         </p>
-                        <button class="booking-btn">確認送出</button>
-                        <small>此預約系統僅預約功能，並不會對您進行收費</small>
+                        <div class="price-btn booking-btn">
+                            <button>
+                                確認送出
+                            </button>
+                        </div>
+                        <small>
+                            此預約系統僅預約功能，
+                            <span>
+                                並不會對您進行收費
+                            </span>
+                        </small>
                     </template>
                 </modal>
             </transition>
