@@ -134,11 +134,15 @@ nav {
 }
 
 
-.menu-bar li {
+
+.menu-bar li a {
     padding-top: 1rem;
     padding-bottom: 1rem;
     padding-left: 4rem;
     padding-right: 4rem;
+    display: block;
+    color: var(--color-primary);
+    /* border: 1px solid; */
 }
 
 nav .contact {
@@ -581,8 +585,12 @@ main .title::after, main .title::before {
 
 .room {
     width: 100%;
-
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
 }
+
 
 .room-title {
     width: 100%;
@@ -606,16 +614,18 @@ main .title::after, main .title::before {
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
-    padding: 1rem 0.5rem;
+    padding: 1rem 0;
 }
 
 .room-info li {
     width: 50%;
     /* border: 1px solid var(--color-primary-variant); */
     margin-bottom: 1rem;
-    padding: 1rem;
+    padding: 1rem 0;
     position: relative;
     display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
     flex-wrap: wrap;
     padding-left: 4rem;
     text-transform: uppercase;
@@ -901,17 +911,30 @@ main .title::after, main .title::before {
     display: flex;
 }
 
+.modal-mask .container {
+    position: relative;
+}
+
 .modal-container {
     width: 100%;
     max-height: calc(100vh - 10rem);
     margin: 5rem 1rem;
     background-color: #fff;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
-    position: relative;
     overflow-y: auto;
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    flex-wrap: wrap;
+}
+
+.modal-main, .modal-side {
+    width: 100%;
+
 }
 
 .modal-header {
+    width: 100%;
     background-image: url("../img/golden-white-marble-textured-background.jpg");
     background-size: cover;
     background-repeat: no-repeat;
@@ -958,9 +981,10 @@ main .title::after, main .title::before {
     font-size: 2rem;
     color: var(--color-primary);
     position: absolute;
-    right: 0.5rem;
-    top: 0.5rem;
-    z-index: 5;
+    right: 2.5rem;
+    top: 5.5rem;
+    z-index: 9;
+    cursor: pointer;
 }
 
 
@@ -1001,6 +1025,14 @@ main .title::after, main .title::before {
 .booking-info p {
     padding: 0 1rem;
     margin-bottom: 0.5rem;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.booking-info span {
+    margin-top: 0.5rem;
+    padding-right: 0.5rem;
+    white-space: nowrap;
 }
 
 .booking-service {
@@ -1027,7 +1059,7 @@ main .title::after, main .title::before {
     align-items: center;
     flex-direction: column;
     text-align: center;
-    padding: 1rem;
+    padding: 0.5rem 1rem;
     /* margin-bottom: 1rem; */
 }
 
@@ -1041,7 +1073,7 @@ main .title::after, main .title::before {
     width: 100%;
     padding: 0 1rem;
     margin-left: 1rem;
-    margin-bottom: 2rem;
+    margin-bottom: 3rem;
     list-style-type: square;
     color: var(--color-primary-variant);
     font-size: 0.875rem;
@@ -1049,6 +1081,12 @@ main .title::after, main .title::before {
 
 .booking-notice li {
     line-height: 1.25rem;
+    word-wrap: break-word;
+
+}
+
+.booking-notice span {
+    white-space: nowrap;
 }
 
 .booking-form {
@@ -1205,6 +1243,43 @@ footer .contact li {
 @media screen and (min-width:992px) {
     .container {
         max-width: 960px;
+    }
+
+    .modal-main {
+        width: calc(100%/12*8);
+    }
+
+    .modal-side {
+        width: calc(100%/12*4);
+    }
+
+    .modal-header h3 {
+        font-size: 3rem;
+    }
+
+    .booking-service {
+        width: 75%;
+    }
+
+    .booking-service-item {
+        padding: 0.5rem 1rem;
+    }
+
+    .booking-service {
+        margin-bottom: 1rem;
+    }
+
+    .room-reverse {
+        flex-direction: row-reverse;
+    }
+
+    .room-info {
+        width: 40%;
+    }
+
+    .room-service {
+        width: 50%;
+
     }
 }
 

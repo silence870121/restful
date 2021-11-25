@@ -26,20 +26,22 @@
                     <button class="modal-default-button" @click="$emit('close')">
                         X
                     </button>
-                    <div class="modal-header">
-                        <slot name="header">
-                        </slot>
+                    <div class="modal-main">
+                        <div class="modal-header">
+                            <slot name="header">
+                            </slot>
+                        </div>
+                        <div class="modal-body">
+                            <slot name="body">
+                            </slot>
+                        </div>
                     </div>
-
-                    <div class="modal-body">
-                        <slot name="body">
-                        </slot>
-                    </div>
-
-                    <div class="modal-footer">
-                        <slot name="footer">
-                        </slot>
-                    </div>
+                    <div class="modal-side">
+                        <div class="modal-footer">
+                            <slot name="footer">
+                            </slot>
+                        </div>
+                    </div> 
                 </div>
             </div>
         </div>
@@ -66,7 +68,9 @@
                     <div class="container">
                         <ul class="menu-bar">
                             <li v-for="item in roomData" :key="item.id">
-                                {{item.name}}
+                                <a :href="'./room.html?roomID='+ item.id">
+                                    {{item.name}}
+                                </a>
                             </li>
                         </ul>
                     </div>
@@ -101,6 +105,8 @@
                         <p>
                             {{room.description}}
                         </p>
+                    </div>
+                    <div class="room room-reverse">
                         <ul class="room-info">
                             <li>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48"
@@ -303,10 +309,12 @@
                                 {{room.descriptionShort['Private-Bath']}} 間 | {{room.descriptionShort.Footage}} 平方公尺
                             </p>
                             <p>
-                                平日(一～四) NT$ {{room.normalDayPrice}}
-                            </p>
-                            <p>
-                                假日(五～日) NT$ {{room.holidayPrice}}
+                                <span>
+                                    平日(一～四) NT$ {{room.normalDayPrice}}
+                                </span>
+                                <span>
+                                    假日(五～日) NT$ {{room.holidayPrice}}
+                                </span>
                             </p>
                         </div>
 
@@ -331,16 +339,16 @@
                         <h3 class="booking-title">訂房事項</h3>
                         <ul class="booking-notice">
                             <li>
-                                入住時間：最早15:00，最晚21:00；<br>
-                                退房時間：10:00，請自行確認行程安排。
+                                入住時間：最早15:00，最晚21:00；
+                                <span> 退房時間：10:00，請自行確認行程安排。</span>
                             </li>
                             <li>
-                                平日定義為 週一至週四 ；<br>
-                                假日定義為 週五至週日 以及 國定假日。
+                                平日定義為 週一至週四 ；
+                                <span> 假日定義為 週五至週日 以及 國定假日。</span>
                             </li>
                             <li>
-                                若您有任何問題，歡迎撥打 00-0000 0000<br>
-                                （服務時間 週一至週六 08:00 - 22:00）
+                                若您有任何問題，歡迎撥打 00-0000 0000
+                                <span> （服務時間 週一至週六 08:00 - 22:00）</span>
                             </li>
                         </ul>
                     </template>
@@ -370,7 +378,7 @@
                         <small>
                             此預約系統僅預約功能，
                             <span>
-                                並不會對您進行收費
+                                並不會對您進行收費。
                             </span>
                         </small>
                     </template>

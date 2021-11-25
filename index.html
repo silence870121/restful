@@ -39,7 +39,9 @@
                     <div class="container">
                         <ul class="menu-bar">
                             <li v-for="item in roomData" :key="item.id">
-                                {{item.name}}
+                                <a :href="'./room.html?roomID='+ item.id">
+                                    {{item.name}}
+                                </a>
                             </li>
                         </ul>
                     </div>
