@@ -15,9 +15,9 @@
         <strong>We're sorry but restful doesn't work properly without JavaScript enabled. Please enable it to
             continue.</strong>
     </noscript>
-    <!--! ---------- ---------- TEST MODAL ---------- ---------- -->
-    <!--! ---------- ---------- TEST MODAL ---------- ---------- -->
-    <!--! ---------- ---------- TEST MODAL ---------- ---------- -->
+    <!--! ---------- ---------- Modal Page ---------- ---------- -->
+    <!--! ---------- ---------- Modal Page ---------- ---------- -->
+    <!--! ---------- ---------- Modal Page ---------- ---------- -->
     <!-- template for the modal component -->
     <script type="text/x-template" id="modal-template">
         <div class="modal-mask">
@@ -26,29 +26,31 @@
                     <button class="modal-default-button" @click="$emit('close')">
                         X
                     </button>
-                    <div class="modal-main">
-                        <div class="modal-header">
-                            <slot name="header">
-                            </slot>
+                    <slot name="booking">
+                        <div class="modal-main">
+                            <div class="modal-header">
+                                <slot name="header">
+                                </slot>
+                            </div>
+                            <div class="modal-body">
+                                <slot name="body">
+                                </slot>
+                            </div>
                         </div>
-                        <div class="modal-body">
-                            <slot name="body">
-                            </slot>
-                        </div>
-                    </div>
-                    <div class="modal-side">
-                        <div class="modal-footer">
-                            <slot name="footer">
-                            </slot>
-                        </div>
-                    </div> 
+                        <div class="modal-side">
+                            <div class="modal-footer">
+                                <slot name="footer">
+                                </slot>
+                            </div>
+                        </div> 
+                    </slot>
                 </div>
             </div>
         </div>
     </script>
-    <!--! ---------- ---------- TEST MODAL ---------- ---------- -->
-    <!--! ---------- ---------- TEST MODAL ---------- ---------- -->
-    <!--! ---------- ---------- TEST MODAL ---------- ---------- -->
+    <!--! ---------- ---------- Modal Page ---------- ---------- -->
+    <!--! ---------- ---------- Modal Page ---------- ---------- -->
+    <!--! ---------- ---------- Modal Page ---------- ---------- -->
     <div id="app">
         <header class="roompage">
             <nav>
@@ -188,82 +190,86 @@
                             </template>
                         </ul>
                     </div>
-                    <div class="booking">
-                        <h3>空房查詢</h3>
+                    <div class="room">
+                        <h3 class="room-title">空房查詢</h3>
                     </div>
-                    <div class="calendar">
-                        <h3>{{format.month[calendar.current.month]}} {{calendar.year}}</h3>
-                        <ul class="calendar-week">
-                            <li>Sun.</li>
-                            <li>Mon.</li>
-                            <li>Tue.</li>
-                            <li>Wed.</li>
-                            <li>Thu.</li>
-                            <li>Fri.</li>
-                            <li>Sat.</li>
-                        </ul>
-                        <ul class="calendar-inner">
-                            <template v-for="date in calendar.current.date" :key="date">
-                                <li v-if="parseInt(date.split('-')[1]) !== (calendar.current.month + 1) || new Date(date).getDate() < new Date().getDate()"
-                                    @click="bookingDate(date)">
-                                    <button class="disabled"> {{parseInt(date.split('-')[2])}} </button>
-                                </li>
-                                <li v-else @click="bookingDate(date)">
-                                    <template v-if="date ==  booking.dateFrom">
-                                        <button class="booking-datefrom"> {{parseInt(date.split('-')[2])}} </button>
-                                    </template>
-                                    <template v-else-if="date ==  booking.dateTo">
-                                        <button class="booking-dateto"> {{parseInt(date.split('-')[2])}} </button>
-                                    </template>
-                                    <template
-                                        v-else-if="new Date(booking.dateFrom) < new Date(date) && new Date(date) < new Date(booking.dateTo)">
-                                        <button class="booking-daterange"> {{parseInt(date.split('-')[2])}} </button>
-                                    </template>
-                                    <template v-else>
-                                        <button v-if="date == calendar.today" class="active">
-                                            {{parseInt(date.split('-')[2])}} </button>
-                                        <button v-else> {{parseInt(date.split('-')[2])}} </button>
-                                    </template>
-                                </li>
-                            </template>
-                        </ul>
-                    </div>
-                    <div class="calendar">
-                        <h3>{{format.month[calendar.next.month]}} {{calendar.year}}</h3>
-                        <ul class="calendar-week">
-                            <li>Sun.</li>
-                            <li>Mon.</li>
-                            <li>Tue.</li>
-                            <li>Wed.</li>
-                            <li>Thu.</li>
-                            <li>Fri.</li>
-                            <li>Sat.</li>
-                        </ul>
-                        <ul class="calendar-inner">
-                            <template v-for="date in calendar.next.date" :key="date">
-                                <li v-if="parseInt(date.split('-')[1]) !== (calendar.next.month + 1) "
-                                    @click="bookingDate(date)">
-                                    <button class="disabled"> {{parseInt(date.split('-')[2])}} </button>
-                                </li>
-                                <li v-else @click="bookingDate(date)">
-                                    <template v-if="date ==  booking.dateFrom">
-                                        <button class="booking-datefrom"> {{parseInt(date.split('-')[2])}} </button>
-                                    </template>
-                                    <template v-else-if="date ==  booking.dateTo">
-                                        <button class="booking-dateto"> {{parseInt(date.split('-')[2])}} </button>
-                                    </template>
-                                    <template
-                                        v-else-if="new Date(booking.dateFrom) < new Date(date) && new Date(date) < new Date(booking.dateTo)">
-                                        <button class="booking-daterange"> {{parseInt(date.split('-')[2])}} </button>
-                                    </template>
-                                    <template v-else>
-                                        <button v-if="date == calendar.today" class="active">
-                                            {{parseInt(date.split('-')[2])}} </button>
-                                        <button v-else> {{parseInt(date.split('-')[2])}} </button>
-                                    </template>
-                                </li>
-                            </template>
-                        </ul>
+                    <div class="room">
+                        <div class="calendar">
+                            <h3>{{format.month[calendar.current.month]}} {{calendar.year}}</h3>
+                            <ul class="calendar-week">
+                                <li>Sun.</li>
+                                <li>Mon.</li>
+                                <li>Tue.</li>
+                                <li>Wed.</li>
+                                <li>Thu.</li>
+                                <li>Fri.</li>
+                                <li>Sat.</li>
+                            </ul>
+                            <ul class="calendar-inner">
+                                <template v-for="date in calendar.current.date" :key="date">
+                                    <li v-if="parseInt(date.split('-')[1]) !== (calendar.current.month + 1) || new Date(date).getDate() < new Date().getDate()"
+                                        @click="bookingDate(date)">
+                                        <button class="disabled"> {{parseInt(date.split('-')[2])}} </button>
+                                    </li>
+                                    <li v-else @click="bookingDate(date)">
+                                        <template v-if="date ==  booking.dateFrom">
+                                            <button class="booking-datefrom"> {{parseInt(date.split('-')[2])}} </button>
+                                        </template>
+                                        <template v-else-if="date ==  booking.dateTo">
+                                            <button class="booking-dateto"> {{parseInt(date.split('-')[2])}} </button>
+                                        </template>
+                                        <template
+                                            v-else-if="new Date(booking.dateFrom) < new Date(date) && new Date(date) < new Date(booking.dateTo)">
+                                            <button class="booking-daterange"> {{parseInt(date.split('-')[2])}}
+                                            </button>
+                                        </template>
+                                        <template v-else>
+                                            <button v-if="date == calendar.today" class="active">
+                                                {{parseInt(date.split('-')[2])}} </button>
+                                            <button v-else> {{parseInt(date.split('-')[2])}} </button>
+                                        </template>
+                                    </li>
+                                </template>
+                            </ul>
+                        </div>
+                        <div class="calendar">
+                            <h3>{{format.month[calendar.next.month]}} {{calendar.year}}</h3>
+                            <ul class="calendar-week">
+                                <li>Sun.</li>
+                                <li>Mon.</li>
+                                <li>Tue.</li>
+                                <li>Wed.</li>
+                                <li>Thu.</li>
+                                <li>Fri.</li>
+                                <li>Sat.</li>
+                            </ul>
+                            <ul class="calendar-inner">
+                                <template v-for="date in calendar.next.date" :key="date">
+                                    <li v-if="parseInt(date.split('-')[1]) !== (calendar.next.month + 1) "
+                                        @click="bookingDate(date)">
+                                        <button class="disabled"> {{parseInt(date.split('-')[2])}} </button>
+                                    </li>
+                                    <li v-else @click="bookingDate(date)">
+                                        <template v-if="date ==  booking.dateFrom">
+                                            <button class="booking-datefrom"> {{parseInt(date.split('-')[2])}} </button>
+                                        </template>
+                                        <template v-else-if="date ==  booking.dateTo">
+                                            <button class="booking-dateto"> {{parseInt(date.split('-')[2])}} </button>
+                                        </template>
+                                        <template
+                                            v-else-if="new Date(booking.dateFrom) < new Date(date) && new Date(date) < new Date(booking.dateTo)">
+                                            <button class="booking-daterange"> {{parseInt(date.split('-')[2])}}
+                                            </button>
+                                        </template>
+                                        <template v-else>
+                                            <button v-if="date == calendar.today" class="active">
+                                                {{parseInt(date.split('-')[2])}} </button>
+                                            <button v-else> {{parseInt(date.split('-')[2])}} </button>
+                                        </template>
+                                    </li>
+                                </template>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -290,103 +296,146 @@
                     </div>
                 </div>
             </section>
-            <!--! ---------- ---------- TEST MODAL ---------- ---------- -->
-            <!--! ---------- ---------- TEST MODAL ---------- ---------- -->
-            <!--! ---------- ---------- TEST MODAL ---------- ---------- -->
+            <!--! ---------- ---------- Modal Page ---------- ---------- -->
+            <!--! ---------- ---------- Modal Page ---------- ---------- -->
+            <!--! ---------- ---------- Modal Page ---------- ---------- -->
             <!-- use the modal component, pass in the prop -->
             <transition name="modal">
                 <modal v-if="showModal" @close="showModal = false">
                     <!-- you can use custom content here to overwrite default content -->
-                    <template v-slot:header>
-                        <h3>Booking</h3>
-                    </template>
-                    <template v-slot:body>
-                        <h3 class="booking-title">{{room.name}}</h3>
-                        <div class="booking-info">
-                            <p>
-                                {{room.descriptionShort.GuestMin}} ~ {{room.descriptionShort.GuestMax}} 人 |
-                                {{room.descriptionShort.Bed.length}} 張床 |
-                                {{room.descriptionShort['Private-Bath']}} 間 | {{room.descriptionShort.Footage}} 平方公尺
-                            </p>
-                            <p>
-                                <span>
-                                    平日(一～四) NT$ {{room.normalDayPrice}}
-                                </span>
-                                <span>
-                                    假日(五～日) NT$ {{room.holidayPrice}}
-                                </span>
-                            </p>
+                    <template v-slot:booking v-if="booking.status">
+                        <div class="modal-main">
+                            <div class="modal-header">
+                                <h3>Booking</h3>
+                            </div>
+                            <div class="modal-body">
+                                <h3 class="booking-title">{{room.name}}</h3>
+                                <div class="booking-info">
+                                    <p>
+                                        {{room.descriptionShort.GuestMin}} ~ {{room.descriptionShort.GuestMax}} 人 |
+                                        {{room.descriptionShort.Bed.length}} 張床 |
+                                        {{room.descriptionShort['Private-Bath']}} 間 |
+                                        {{room.descriptionShort.Footage}} 平方公尺
+                                    </p>
+                                    <p>
+                                        <span>
+                                            平日(一～四) NT$ {{room.normalDayPrice}}
+                                        </span>
+                                        <span>
+                                            假日(五～日) NT$ {{room.holidayPrice}}
+                                        </span>
+                                    </p>
+                                </div>
+                                <ul class="booking-service">
+                                    <template v-for="(service, index, num) in room.amenities">
+                                        <li class="booking-service-item" v-if="service">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"
+                                                viewBox="0 0 32 32" fill="currentColor">
+                                                <path :d="amenities[num].icon" fill="#currentColor" />
+                                            </svg>
+                                            <span> {{amenities[num].item}} </span>
+                                        </li>
+                                        <li class="booking-service-item disabled" v-else>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"
+                                                viewBox="0 0 32 32" fill="currentColor">
+                                                <path :d="amenities[num].icon" fill="#currentColor" />
+                                            </svg>
+                                            <span> {{amenities[num].item}} </span>
+                                        </li>
+                                    </template>
+                                </ul>
+                                <h3 class="booking-title">訂房事項</h3>
+                                <ul class="booking-notice">
+                                    <li>
+                                        入住時間：最早15:00，最晚21:00；
+                                        <span> 退房時間：10:00，請自行確認行程安排。</span>
+                                    </li>
+                                    <li>
+                                        平日定義為 週一至週四 ；
+                                        <span> 假日定義為 週五至週日 以及 國定假日。</span>
+                                    </li>
+                                    <li>
+                                        若您有任何問題，歡迎撥打 00-0000 0000
+                                        <span> （服務時間 週一至週六 08:00 - 22:00）</span>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
+                        <div class="modal-side">
+                            <div class="modal-footer">
+                                <form action="" class="booking-form">
+                                    <label for="">訂房姓名</label>
+                                    <input type="text" name="name" id="">
+                                    <label for="">手機號碼</label>
+                                    <input type="text" name="phone" id="">
+                                    <label for="">入住日期</label>
+                                    <input type="text" name="bookingdate" id="">
+                                    <label for="">退房日期</label>
+                                    <input type="text" name="bookingdate" id="">
+                                    <span class="booking-days">
+                                        3日，平日 1夜，假日 1夜
+                                    </span>
+                                </form>
+                                <p class="booking-price">
+                                    <small>Total</small>
+                                    <span> NT$ 9,999 </span>
+                                </p>
+                                <div class="price-btn booking-btn">
+                                    <button>
+                                        確認送出
+                                    </button>
+                                </div>
+                                <small>
+                                    此預約系統僅預約功能，
+                                    <span>
+                                        並不會對您進行收費。
+                                    </span>
+                                </small>
+                            </div>
+                        </div>
+                    </template>
+                    <template v-slot:booking v-if="!booking.status">
+                        <div class="response-main">
+                            <div class="response-header">
+                                <div class="response-inner">
+                                    <i></i>
+                                    <p>Booking</p>
+                                    <span>Successed</span>
+                                </div>
+                            </div>
 
-                        <ul class="booking-service">
-                            <template v-for="(service, index, num) in room.amenities">
-                                <li class="booking-service-item" v-if="service">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"
-                                        fill="currentColor">
-                                        <path :d="amenities[num].icon" fill="#currentColor" />
-                                    </svg>
-                                    <span> {{amenities[num].item}} </span>
-                                </li>
-                                <li class="booking-service-item disabled" v-else>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"
-                                        fill="currentColor">
-                                        <path :d="amenities[num].icon" fill="#currentColor" />
-                                    </svg>
-                                    <span> {{amenities[num].item}} </span>
-                                </li>
-                            </template>
-                        </ul>
-                        <h3 class="booking-title">訂房事項</h3>
-                        <ul class="booking-notice">
-                            <li>
-                                入住時間：最早15:00，最晚21:00；
-                                <span> 退房時間：10:00，請自行確認行程安排。</span>
-                            </li>
-                            <li>
-                                平日定義為 週一至週四 ；
-                                <span> 假日定義為 週五至週日 以及 國定假日。</span>
-                            </li>
-                            <li>
-                                若您有任何問題，歡迎撥打 00-0000 0000
-                                <span> （服務時間 週一至週六 08:00 - 22:00）</span>
-                            </li>
-                        </ul>
-                    </template>
-                    <template v-slot:footer>
-                        <form action="" class="booking-form">
-                            <label for="">訂房姓名</label>
-                            <input type="text" name="name" id="">
-                            <label for="">手機號碼</label>
-                            <input type="text" name="phone" id="">
-                            <label for="">入住日期</label>
-                            <input type="text" name="bookingdate" id="">
-                            <label for="">退房日期</label>
-                            <input type="text" name="bookingdate" id="">
-                            <span class="booking-days">
-                                3日，平日 1夜，假日 1夜
-                            </span>
-                        </form>
-                        <p class="booking-price">
-                            <small>Total</small>
-                            <span> NT$ 9,999 </span>
-                        </p>
-                        <div class="price-btn booking-btn">
-                            <button>
-                                確認送出
-                            </button>
                         </div>
-                        <small>
-                            此預約系統僅預約功能，
-                            <span>
-                                並不會對您進行收費。
-                            </span>
-                        </small>
+                        <div class="response-side">
+                            <div class="response-footer">
+                                <div class="response-inner">
+                                    <h3> 預約<span>成功</span></h3>
+                                    <p class="response-time">預約時間： <span>2021 01/01 12:00 AM</span></p>
+                                    <template v-if="response">
+                                        <ul class="response-info">
+                                            <li> 預約客房：<span> Single Room </span></li>
+                                            <li> 預約姓名：<span> 某某某 </span></li>
+                                            <li> 連絡電話：<span> 0900-000-000 </span></li>
+                                            <li> 訂房日期：<span> 2021 01/02 - 01/04 </span> </li>
+                                        </ul>
+                                        <small>{{booking.normalDay + booking.holiday + 1}}日，平日 {{booking.normalDay}}夜，假日
+                                            {{booking.holiday}}夜</small>
+
+                                    </template>
+                                    <p class="response-notice">
+                                        <span> 稍後將透過簡訊發送預約通知 </span>
+                                        <span> 入住當日需出示此預約通知 </span>
+                                        <span> 若未收到簡訊 請來電確認 </span>
+                                        <small> － 感謝您的預約 －</small>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
                     </template>
                 </modal>
             </transition>
-            <!--! ---------- ---------- TEST MODAL ---------- ---------- -->
-            <!--! ---------- ---------- TEST MODAL ---------- ---------- -->
-            <!--! ---------- ---------- TEST MODAL ---------- ---------- -->
+            <!--! ---------- ---------- Modal Page ---------- ---------- -->
+            <!--! ---------- ---------- Modal Page ---------- ---------- -->
+            <!--! ---------- ---------- Modal Page ---------- ---------- -->
             <section class="section">
                 <div class="container">
                     <h2 class="title">Testimonials</h2>

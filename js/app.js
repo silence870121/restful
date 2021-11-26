@@ -77,6 +77,7 @@ const app = Vue.createApp({
                 }
             },
             booking: {
+                status: false,
                 name: "",
                 phoneNumber: "",
                 price: "",
@@ -84,8 +85,12 @@ const app = Vue.createApp({
                 dateFrom: "",
                 dateTo: "",
                 dateRange: [],
+
+                normalDay: 0,
+                holiday: 0
             },
-            showModal: true
+            showModal: true,
+            response: true,
         }
     },
     methods: {

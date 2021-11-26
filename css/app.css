@@ -591,6 +591,12 @@ main .title::after, main .title::before {
     flex-wrap: wrap;
 }
 
+.room h3 {
+    width: 100%;
+    font-size: 1.5rem;
+    color: var(--color-primary);
+    padding: 0.5rem;
+}
 
 .room-title {
     width: 100%;
@@ -690,22 +696,6 @@ main .title::after, main .title::before {
     margin: 0.5rem;
 }
 
-.booking {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-}
-
-.booking h3 {
-    width: 100%;
-    font-size: 1.5rem;
-    color: var(--color-primary);
-    text-align-last: left;
-    padding: 0.5rem;
-}
-
 .calendar {
     width: 100%;
     min-height: 20rem;
@@ -714,6 +704,7 @@ main .title::after, main .title::before {
 }
 
 .calendar h3 {
+    width: 100%;
     font-size: 1.5rem;
     color: var(--color-primary-variant);
     text-align: center;
@@ -754,9 +745,7 @@ main .title::after, main .title::before {
     color: var(--color-primary);
     text-align: center;
     transition: background 200ms ease;
-
     position: relative;
-    /* border: 1px solid var(--color-primary); */
 }
 
 .calendar-inner li .active {
@@ -780,10 +769,6 @@ main .title::after, main .title::before {
     padding: 0.25rem;
     border-radius: 50%;
     transition: background 200ms ease;
-
-
-
-    /* border: 1px solid var(--color-primary); */
 }
 
 .calendar-inner li .disabled {
@@ -802,7 +787,6 @@ main .title::after, main .title::before {
 .calendar-inner .booking-daterange {
     color: var(--color-secondary-variant);
 }
-
 
 .calendar-inner .booking-datefrom::before {
     position: absolute;
@@ -928,11 +912,26 @@ main .title::after, main .title::before {
     flex-wrap: wrap;
 }
 
-.modal-main, .modal-side {
-    width: 100%;
-
+.modal-default-button {
+    background-color: unset;
+    border: unset;
+    width: 3rem;
+    height: 3rem;
+    font-size: 2rem;
+    color: var(--color-primary);
+    position: absolute;
+    right: 2.5rem;
+    top: 5.5rem;
+    z-index: 9;
+    cursor: pointer;
 }
 
+.modal-main, .modal-side,
+.response-main, .response-side {
+    width: 100%;
+}
+
+/*? form modal part */
 .modal-header {
     width: 100%;
     background-image: url("../img/golden-white-marble-textured-background.jpg");
@@ -973,20 +972,142 @@ main .title::after, main .title::before {
     flex-wrap: wrap;
 }
 
-.modal-default-button {
-    background-color: unset;
-    border: unset;
-    width: 3rem;
-    height: 3rem;
-    font-size: 2rem;
+/*? form modal part end */
+/*? response modal part */
+.response-header {
+    width: 100%;
+    height: calc(100vh - 10rem);
+    background-image: url("../img/golden-white-marble-textured-background.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    position: relative;
     color: var(--color-primary);
-    position: absolute;
-    right: 2.5rem;
-    top: 5.5rem;
-    z-index: 9;
-    cursor: pointer;
 }
 
+.response-header::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    backdrop-filter: blur(4px);
+}
+
+.response-footer {
+    width: 100%;
+    height: calc(100vh - 10rem);
+    background-color: var(--color-primary-variant);
+    color: var(--color-on-primary);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.response-inner {
+    z-index: 9;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.response-header p, .response-header span {
+    width: 100%;
+    text-transform: uppercase;
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.response-header i {
+    width: 10rem;
+    height: 10rem;
+    font-size: 10rem;
+    margin-bottom: 3rem;
+    border: 5px solid var(--color-primary);
+    border-radius: 50%;
+}
+
+.response-header p {
+    font-size: 3rem;
+}
+
+.response-detail {}
+
+.response-footer h3 {
+    width: 100%;
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.response-time {
+    width: 100%;
+    text-align: center;
+    color: var(--color-primary);
+    font-size: 0.75rem;
+}
+
+.response-info {
+    /* width: 15rem; */
+    width: calc(100%/12*8);
+    max-width: 15rem;
+    margin-top: 0.5rem;
+}
+
+.response-info li {
+    margin-top: 1rem;
+}
+
+.response-footer small {
+    width: 100%;
+    color: var(--color-primary);
+    text-align: center;
+    white-space: nowrap;
+    padding: 0.25rem;
+}
+
+.response-notice {
+    text-align: center;
+    width: 75%;
+    max-width: 20rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    font-size: 0.75rem;
+    margin-top: 2.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.response-notice span {
+    white-space: nowrap;
+    padding: 0.25rem;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*? response modal part end */
 
 /*? MODAL animation */
 
@@ -1245,11 +1366,11 @@ footer .contact li {
         max-width: 960px;
     }
 
-    .modal-main {
+    .modal-main, .response-side {
         width: calc(100%/12*8);
     }
 
-    .modal-side {
+    .modal-side, .response-main {
         width: calc(100%/12*4);
     }
 
@@ -1279,7 +1400,14 @@ footer .contact li {
 
     .room-service {
         width: 50%;
+    }
 
+    .calendar {
+        width: calc(50% - 0.5rem);
+        min-height: 20rem;
+        margin-bottom: 1rem;
+        /* margin-right: 0.25rem;
+        margin-left: 0.25rem; */
     }
 }
 
