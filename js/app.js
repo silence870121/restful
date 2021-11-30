@@ -68,10 +68,12 @@ const app = Vue.createApp({
                 year: "",
                 today: "",
                 current: {
+                    year: 2021,
                     month: 10,
                     date: [],
                 },
                 next: {
+                    year: 2021,
                     month: 11,
                     date: [],
                 }
@@ -81,15 +83,38 @@ const app = Vue.createApp({
                 name: "",
                 phoneNumber: "",
                 temp: "",
-                dateFrom: "2021-01-01",
-                dateTo: "2021-01-31",
+                dateFrom: "",
+                dateTo: "",
                 dateRange: [],
                 normalDay: 0,
                 holiday: 0,
                 price: 0,
+                formError: {
+                    name: false,
+                    phoneNumber: false,
+                },
+                alert: {
+                    name: "",
+                    phoneNumber: "",
+                },
+            },
+            limit: {
+                dateFrom: "",
+                dateTo: "",
+            },
+            response: {
+                time: "",
+                data: {
+                    room: "",
+                    name: "",
+                    phoneNumber: "",
+                    dateFrom: "",
+                    dateTo: "",
+                },
+                success: true,
+                alert: "",
             },
             showModal: true,
-            success: true,
         }
     },
     methods: {
@@ -150,26 +175,25 @@ const app = Vue.createApp({
                     })
             }
         },
-        getCalender() {
+        getToday() {
             const today = new Date()
             const year = today.getFullYear()
             const currentMonth = today.getMonth()
-            const nextMonth = currentMonth + 1
 
-            const currentFirst = new Date(year, currentMonth, 1)
-            const nextFirst = new Date(year, nextMonth, 1)
             const oneDay = 24 * 60 * 60 * 1000;
             this.calendar.year = year
             this.calendar.today = this.dateFormat(today)
             this.calendar.current.month = currentMonth
-            this.calendar.next.month = nextMonth
-            for (let i = 0; i < 35; i++) {
-                let currentDay = new Date(currentFirst.getTime() + oneDay * (i - currentFirst.getDay()))
-                let nextDay = new Date(nextFirst.getTime() + oneDay * (i - nextFirst.getDay()))
-                // console.log(this.dateFormat(currentDay), this.dateFormat(nextDay));
-                this.calendar.current.date.push(this.dateFormat(currentDay))
-                this.calendar.next.date.push(this.dateFormat(nextDay))
+            this.calendar.current.year = year
+            if (currentMonth + 1 > 11) {
+                this.calendar.next.month = 0
+                this.calendar.next.year = year + 1
+            } else {
+                this.calendar.next.month = currentMonth + 1
+                this.calendar.next.year = year
             }
+            this.limit.dateFrom = this.dateFormat(new Date(today.getTime() + oneDay))
+            this.limit.dateTo = this.dateFormat(new Date(today.getTime() + oneDay * 90))
             // console.log(this.calendar.current.date);
             // console.log(this.calendar.next.date);
         },
@@ -203,20 +227,118 @@ const app = Vue.createApp({
                         this.booking.dateFrom = this.booking.temp
                         this.booking.dateTo = date
                         // this.bookingRange()
+                        this.booking.temp = ""
                     } else if (new Date(date) < new Date(this.booking.temp)) {
                         this.booking.dateFrom = date
                         this.booking.dateTo = this.booking.temp
                         // this.bookingRange()
+                        this.booking.temp = ""
                     } else {
                         console.log("please select other date");
                     }
-                    this.booking.temp = ""
                 }
-                console.log(new Date().getTime());
+                // console.log(new Date().getTime());
 
                 //? ---------- if date in can booking range ----------
             }
         },
+        updateCalender(num) {
+            this.calendar.current.month += num
+            this.calendar.next.month += num
+            if (this.calendar.current.month > 11) {
+                this.calendar.current.month = 0
+                this.calendar.current.year++
+            }
+            if (this.calendar.next.month > 11) {
+                this.calendar.next.month = 0
+                this.calendar.next.year++
+            }
+            if (this.calendar.current.month < 0) {
+                this.calendar.current.month = 11
+                this.calendar.current.year--
+            }
+            if (this.calendar.next.month < 0) {
+                this.calendar.next.month = 11
+                this.calendar.next.year--
+            }
+        },
+        checkNamne() {
+            // const isName = /^[a-zA-Z0-9]+$/;
+            const isName = /^[a-zA-Z\u4e00-\u9fa5\_\-\.\·]*$/g;
+            if (this.booking.name == "") {
+                this.booking.formError.name = true
+                this.booking.alert.name = "請輸入姓名 ! "
+            } else if (!isName.test(this.booking.name)) {
+                this.booking.formError.name = true
+                this.booking.alert.name = "請勿包含特殊字元"
+            } else if (this.booking.name.length < 3) {
+                this.booking.formError.name = true
+                this.booking.alert.name = "請輸入正確的姓名"
+            } else {
+                this.booking.formError.name = false
+            }
+        },
+        checkPhone() {
+            const isPhone = /\d{4}-\d{3}-\d{3}/;
+            const isPhone2 = /\d{4}\d{3}\d{3}/;
+            if (this.booking.phoneNumber == "") {
+                this.booking.formError.phoneNumber = true
+                this.booking.alert.phoneNumber = "請輸入手機號碼 ! "
+            } else if (!isPhone.test(this.booking.phoneNumber) && !isPhone2.test(this.booking.phoneNumber)) {
+                this.booking.formError.phoneNumber = true
+                this.booking.alert.phoneNumber = "請輸入正確的號碼 ! "
+            } else {
+                this.booking.formError.phoneNumber = false
+            }
+        },
+        sendBookingForm() {
+            const hexAPI = 'https://challenge.thef2e.com/api/thef2e2019/stage6/'
+            const roomID = new URL(location.href).searchParams.get('roomID')
+            const token = 'aTXLTsqJGnHCcyEkIF6mM5EW6NdJMaluqX0dD5BpQS5qk0NO67goQ232Mv4I'
+            const dataurl = hexAPI + 'room/' + roomID
+            const data = {
+                name: this.booking.name,
+                tel: this.booking.phoneNumber,
+                date: this.booking.dateRange
+            }
+            this.checkNamne()
+            this.checkNamne()
+            if (!this.booking.formError.name && !this.booking.formError.phoneNumber) {
+                axios.defaults.headers.common.Authorization = `Bearer ${token}`
+                axios.post(dataurl, data)
+                    .then((res) => {
+                        console.log(res)
+                        console.log(res.data.success)
+                        console.log(data)
+                        alert("您的預約成功")
+                        this.response.success = res.data.success
+                        this.response.alert = "您的預約成功"
+                        this.response.data = {
+                            room: res.data.room[0].name,
+                            name: this.booking.name,
+                            tel: this.booking.phoneNumber,
+                            dateFrom: this.booking.dateFrom,
+                            dateTo: this.booking.dateTo
+                        }
+                        this.booking.name = ""
+                        this.booking.phoneNumber = ""
+                        this.booking.dateFrom = ""
+                        this.booking.dateTo = ""
+                        this.booking.status = false
+                    })
+                    .catch((err) => {
+                        // console.log(err.request)
+                        console.log(err.response)
+                        console.log(err.response.data.success)
+                        console.log(err.response.data.message)
+                        alert(err.response.data.message)
+                        this.response.success = false
+                        this.response.alert = err.response.data.message
+                        this.booking.status = false
+                    })
+                this.response.time = this.calendar.today + " " + new Date().toLocaleTimeString('en-US')
+            }
+        }
     },
     computed: {
         renderBookingRange() {
@@ -237,10 +359,27 @@ const app = Vue.createApp({
                 }
             });
         },
+        renderCalender() {
+            console.log("renderCalender");
+            const currentFirst = new Date(this.calendar.current.year, this.calendar.current.month, 1)
+            const nextFirst = new Date(this.calendar.next.year, this.calendar.next.month, 1)
+            const oneDay = 24 * 60 * 60 * 1000;
+            this.calendar.current.date = []
+            this.calendar.next.date = []
+            for (let i = 0; i < 35; i++) {
+                let currentDay = new Date(currentFirst.getTime() + oneDay * (i - currentFirst.getDay()))
+                let nextDay = new Date(nextFirst.getTime() + oneDay * (i - nextFirst.getDay()))
+                // console.log(this.dateFormat(currentDay), this.dateFormat(nextDay));
+                this.calendar.current.date.push(this.dateFormat(currentDay))
+                this.calendar.next.date.push(this.dateFormat(nextDay))
+            }
+            // console.log(this.calendar.current.date);
+            // console.log(this.calendar.next.date);
+        },
         bookingPrice() {
             this.booking.price = this.toCurrency(this.booking.normalDay * this.roomItem.room[0].normalDayPrice + this.booking.holiday *
                 this.roomItem.room[0].holidayPrice)
-        }
+        },
     },
     watch: {
         //? ---------- modal control ----------
@@ -249,14 +388,21 @@ const app = Vue.createApp({
                 document.documentElement.style.overflow = 'hidden'
                 return
             }
-
             document.documentElement.style.overflow = 'auto'
-        }
+            this.booking.formError.name = false
+            this.booking.formError.phoneNumber = false
+        },
+        "booking.name"() {
+            this.checkNamne()
+        },
+        "booking.phoneNumber"() {
+            this.checkPhone()
+        },
     },
     mounted() {
         this.getRoomsData()
         this.getRoomsAllData()
-        this.getCalender()
+        this.getToday()
     }
 })
 app.component("modal", {

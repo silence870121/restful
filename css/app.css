@@ -68,6 +68,9 @@ img {
 
     --color-on-primary: hsl(0, 0%, 100%);
     --color-on-secondary: hsl(225, 100%, 90%);
+
+    --color-error: hsl(0, 100%, 75%);
+    --color-on-error: hsl(0, 100%, 90%);
 }
 
 body {
@@ -705,7 +708,23 @@ main .title::after, main .title::before {
     text-align: center;
     margin-top: 3rem;
     margin-bottom: 0.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
+
+.calendar-control {
+    flex: 1;
+    width: 3rem;
+    height: 1.5rem;
+    font-size: 1.5rem;
+    line-height: 1rem;
+    color: var(--color-primary);
+    background-color: unset;
+    border: unset;
+    cursor: pointer;
+}
+
 
 .calendar-week {
     display: flex;
@@ -969,6 +988,7 @@ main .title::after, main .title::before {
 
 /*? form modal part end */
 /*? response modal part */
+
 .response-header {
     width: 100%;
     height: calc(100vh - 10rem);
@@ -1066,6 +1086,7 @@ main .title::after, main .title::before {
     text-align: center;
     white-space: nowrap;
     padding: 0.25rem;
+    margin-top: 0.5rem;
 }
 
 .response-notice {
@@ -1085,20 +1106,6 @@ main .title::after, main .title::before {
     white-space: nowrap;
     padding: 0.25rem;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 /*? response modal part end */
 
@@ -1223,6 +1230,11 @@ main .title::after, main .title::before {
     margin-bottom: 1rem;
 }
 
+.booking-alert {
+    color: var(--color-error);
+    padding: 0 1rem;
+}
+
 .booking-days {
     color: var(--color-primary);
 }
@@ -1344,7 +1356,6 @@ footer .contact li {
     footer .contact li {
         width: auto;
         text-align: center;
-
     }
 }
 
@@ -1369,6 +1380,10 @@ footer .contact li {
 
     .modal-header h3 {
         font-size: 3rem;
+    }
+
+    .response-header, .response-footer {
+        max-height: 40rem;
     }
 
     .booking-service {

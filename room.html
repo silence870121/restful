@@ -195,7 +195,15 @@
                     </div>
                     <div class="room">
                         <div class="calendar">
-                            <h3>{{format.month[calendar.current.month]}} {{calendar.year}}</h3>
+                            <h3>
+                                <button class="calendar-control" @click="updateCalender(-1)">
+                                    <span>&lt;</span>
+                                </button>
+                                {{format.month[calendar.current.month]}} {{calendar.current.year}}
+                                <button class="calendar-control" @click="updateCalender(1)">
+                                    <span> &gt;</span>
+                                </button>
+                            </h3>
                             <ul class="calendar-week">
                                 <li>Sun.</li>
                                 <li>Mon.</li>
@@ -207,7 +215,7 @@
                             </ul>
                             <ul class="calendar-inner">
                                 <template v-for="date in calendar.current.date" :key="date">
-                                    <li v-if="parseInt(date.split('-')[1]) !== (calendar.current.month + 1) || new Date(date).getDate() < new Date().getDate()"
+                                    <li v-if="parseInt(date.split('-')[1]) !== (calendar.current.month + 1) || new Date(date) < new Date(calendar.today)"
                                         @click="setbookingDate(date)">
                                         <button class="disabled"> {{parseInt(date.split('-')[2])}} </button>
                                     </li>
@@ -233,7 +241,15 @@
                             </ul>
                         </div>
                         <div class="calendar">
-                            <h3>{{format.month[calendar.next.month]}} {{calendar.year}}</h3>
+                            <h3>
+                                <button class="calendar-control" @click="updateCalender(-1)">
+                                    <span>&lt;</span>
+                                </button>
+                                {{format.month[calendar.next.month]}} {{calendar.next.year}}
+                                <button class="calendar-control" @click="updateCalender(1)">
+                                    <span> &gt;</span>
+                                </button>
+                            </h3>
                             <ul class="calendar-week">
                                 <li>Sun.</li>
                                 <li>Mon.</li>
@@ -364,34 +380,45 @@
                         <div class="modal-side">
                             <div class="modal-footer">
                                 <form action="" class="booking-form">
-                                    <label for="name">訂房姓名</label>
-                                    <input type="text" name="name" id="name" v-model="booking.name"
-                                        pattern="^[\u4e00-\u9fa5]+$|^[a-zA-Z\s]+$" required>
+                                    <label for="name">
+                                        訂房姓名
+                                        <span v-if="booking.formError.name" class="booking-alert">
+                                            {{booking.alert.name}}
+                                        </span>
+                                    </label>
+                                    <input type="text" name="name" id="name" v-model="booking.name" @blur="checkNamne"
+                                        required>
 
-                                    <label for="phone">手機號碼</label>
-                                    <input type="text" name="phone" id="phone" v-model="booking.phoneNumber" required>
+                                    <label for="phone">
+                                        手機號碼
+                                        <span v-if="booking.formError.phoneNumber" class="booking-alert">
+                                            {{booking.alert.phoneNumber}}
+                                        </span>
+                                    </label>
+                                    <input type="text" name="phone" id="phone" v-model="booking.phoneNumber"
+                                        @blur="checkPhone" placeholder="0000-000-000" required>
 
                                     <label for="dateFrom">入住日期</label>
                                     <input type="date" name="dateFrom" id="dateFrom" v-model="booking.dateFrom"
-                                        required>
+                                        :min="limit.dateFrom" required>
 
                                     <label for="dateTo">退房日期</label>
-                                    <input type="date" name="dateTo" id="dateTo" v-model="booking.dateTo" required>
+                                    <input type="date" name="dateTo" id="dateTo" v-model="booking.dateTo"
+                                        :min="limit.dateFrom" :max="limit.dateTo" required>
 
                                     <span class="booking-days">
                                         {{booking.dateRange.length}} 日，平日 {{booking.normalDay}} 夜，假日 {{booking.holiday}}
                                         夜
                                     </span>
-                                    <input type="submit">
                                 </form>
                                 <p class="booking-price">
                                     <small>Total</small>
                                     <span> NT$ {{booking.price}} </span>
                                 </p>
                                 <div class="price-btn booking-btn">
-                                    <!-- <button @click="booking.status = false">
+                                    <button @click="sendBookingForm()">
                                         確認送出
-                                    </button> -->
+                                    </button>
                                 </div>
                                 <small>
                                     此預約系統僅預約功能，
@@ -408,7 +435,8 @@
                                 <div class="response-inner">
                                     <i></i>
                                     <p>Booking</p>
-                                    <span>Successed</span>
+                                    <span v-if="response.success">Successed</span>
+                                    <span v-else>Failed</span>
                                 </div>
                             </div>
 
@@ -416,26 +444,38 @@
                         <div class="response-side">
                             <div class="response-footer">
                                 <div class="response-inner">
-                                    <h3> 預約<span>成功</span></h3>
-                                    <p class="response-time">預約時間： <span>2021 01/01 12:00 AM</span></p>
-                                    <template v-if="success">
+                                    <h3>
+                                        預約<span v-if="response.success">成功</span><span v-else>失敗</span>
+                                    </h3>
+                                    <p class="response-time">預約時間： <span> {{response.time }}</span></p>
+                                    <template v-if="response.success">
                                         <ul class="response-info">
-                                            <li> 預約客房：<span> Single Room </span></li>
-                                            <li> 預約姓名：<span> 某某某 </span></li>
-                                            <li> 連絡電話：<span> 0900-000-000 </span></li>
-                                            <li> 訂房日期：<span> 2021 01/02 - 01/04 </span> </li>
+                                            <li> 預約客房：<span> {{response.data.room}}</span></li>
+                                            <li> 預約姓名：<span> {{response.data.name}} </span></li>
+                                            <li> 連絡電話：<span>{{response.data.tel}} </span></li>
+                                            <li> 訂房日期：<span>
+                                                    {{response.data.dateFrom.split('-')[1]}}/{{response.data.dateFrom.split('-')[2]}}
+                                                    -
+                                                    {{response.data.dateTo.split('-')[1]}}/{{response.data.dateTo.split('-')[2]}}
+                                                </span> </li>
                                         </ul>
                                         <small>{{booking.normalDay + booking.holiday + 1}} 日，
                                             平日{{booking.normalDay}} 夜，
                                             假日{{booking.holiday}} 夜</small>
 
+                                        <p class="response-notice">
+                                            <span> 稍後將透過簡訊發送預約通知 </span>
+                                            <span> 入住當日需出示此預約通知 </span>
+                                            <span> 若未收到簡訊 請來電確認 </span>
+                                            <small> － 感謝您的預約 －</small>
+                                        </p>
                                     </template>
-                                    <p class="response-notice">
-                                        <span> 稍後將透過簡訊發送預約通知 </span>
-                                        <span> 入住當日需出示此預約通知 </span>
-                                        <span> 若未收到簡訊 請來電確認 </span>
-                                        <small> － 感謝您的預約 －</small>
-                                    </p>
+                                    <template v-else>
+                                        <p class="response-notice">
+                                            <span> 很抱歉 您所預約的訂房時間 已有其他人的預約</span>
+                                            <small> － 請選擇其他房型或日期 －</small>
+                                        </p>
+                                    </template>
                                 </div>
                             </div>
                         </div>
