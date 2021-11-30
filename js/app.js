@@ -77,20 +77,19 @@ const app = Vue.createApp({
                 }
             },
             booking: {
-                status: false,
+                status: true,
                 name: "",
                 phoneNumber: "",
-                price: "",
                 temp: "",
-                dateFrom: "",
-                dateTo: "",
+                dateFrom: "2021-01-01",
+                dateTo: "2021-01-31",
                 dateRange: [],
-
                 normalDay: 0,
-                holiday: 0
+                holiday: 0,
+                price: 0,
             },
             showModal: true,
-            response: true,
+            success: true,
         }
     },
     methods: {
@@ -117,6 +116,12 @@ const app = Vue.createApp({
                     break;
             }
         },
+        toCurrency(num) {
+            // 如何加入千分位
+            const parts = num.toString().split('.');
+            parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+            return `${parts.join('.')}`;
+        },
         //? ---------- ---------- getData ---------- ----------
         //? ---------- ---------- getData ---------- ----------
         //? ---------- ---------- getData ---------- ----------
@@ -141,10 +146,7 @@ const app = Vue.createApp({
                 axios.defaults.headers.common.Authorization = `Bearer ${token}`
                 axios.get(hexAPI + 'room/' + roomID)
                     .then((res) => {
-                        // console.log(res.data)
-                        // console.log(res.data.room)
                         this.roomItem = res.data
-                        console.log(this.roomItem.room[0]);
                     })
             }
         },
@@ -189,7 +191,7 @@ const app = Vue.createApp({
             }
         },
         //? ---------- booking ----------
-        bookingDate(date) {
+        setbookingDate(date) {
             if (new Date(date) > new Date()) {
                 //? ---------- if date in can booking range ----------
                 if (this.booking.temp == "") {
@@ -215,25 +217,33 @@ const app = Vue.createApp({
                 //? ---------- if date in can booking range ----------
             }
         },
-        //? ---------- modal control ----------
-
-
-
-
-
     },
     computed: {
         renderBookingRange() {
+            //? reset booking data
             this.booking.dateRange = []
+            this.booking.normalDay = 0
+            this.booking.holiday = 0
+            //? render new booking data
             for (let i = new Date(this.booking.dateFrom).getTime(); i < new Date(this.booking.dateTo).getTime() + 1000 * 60 * 60 * 24; i += 1000 * 60 * 60 * 24) {
-                console.log("PUSH " + this.dateFormat(new Date(i)));
-                // console.log(i);
                 this.booking.dateRange.push(this.dateFormat(new Date(i)))
             }
-            console.log(this.booking.dateRange);
+            let daily = this.booking.dateRange.filter((date, i) => i < this.booking.dateRange.length - 1)
+            daily.forEach(date => {
+                if (1 <= new Date(date).getDay() && new Date(date).getDay() <= 4) {
+                    this.booking.normalDay++
+                } else {
+                    this.booking.holiday++
+                }
+            });
         },
+        bookingPrice() {
+            this.booking.price = this.toCurrency(this.booking.normalDay * this.roomItem.room[0].normalDayPrice + this.booking.holiday *
+                this.roomItem.room[0].holidayPrice)
+        }
     },
     watch: {
+        //? ---------- modal control ----------
         showModal() {
             if (this.showModal) {
                 document.documentElement.style.overflow = 'hidden'
