@@ -233,13 +233,12 @@ const app = Vue.createApp({
         },
         //? ---------- booking ----------
         setbookingDate(date) {
-            if (new Date(date) > new Date()) {
+            if (new Date(this.limit.dateFrom) <= new Date(date) && new Date(date) <= new Date(this.limit.dateTo)) {
                 //? ---------- if date in can booking range ----------
                 if (this.booking.temp == "") {
                     console.log("this's first select");
                     this.booking.temp = date
                 } else {
-
                     if (new Date(this.booking.temp) < new Date(date)) {
                         this.booking.dateFrom = this.booking.temp
                         this.booking.dateTo = date
@@ -255,9 +254,29 @@ const app = Vue.createApp({
                     }
                 }
                 // console.log(new Date().getTime());
-
                 //? ---------- if date in can booking range ----------
+            } else {
+                console.log("your select date is over range");
             }
+        },
+        getDateRange() {
+            //? reset booking data
+            this.booking.normalDay = 0
+            this.booking.holiday = 0
+            this.booking.dateRange = []
+            //? render new booking data
+            for (let i = new Date(this.booking.dateFrom).getTime(); i < new Date(this.booking.dateTo).getTime() + 1000 * 60 * 60 * 24; i += 1000 * 60 * 60 * 24) {
+                this.booking.dateRange.push(this.dateFormat(new Date(i)))
+            }
+            console.log("renderBookingRange");
+            this.booking.dateRange.filter((date, index) => index < this.booking.dateRange.length - 1).forEach(date => {
+                if (1 <= new Date(date).getDay() && new Date(date).getDay() <= 4) {
+                    this.booking.normalDay++
+                } else {
+                    this.booking.holiday++
+                }
+            });
+
         },
         updateCalender(num) {
             this.calendar.current.month += num
@@ -328,7 +347,7 @@ const app = Vue.createApp({
                         console.log(res)
                         console.log(res.data.success)
                         console.log(data)
-                        alert("您的預約成功")
+                        // alert("您的預約成功")
                         this.response.success = res.data.success
                         this.response.alert = "您的預約成功"
                         this.response.data = {
@@ -349,7 +368,7 @@ const app = Vue.createApp({
                         console.log(err.response)
                         console.log(err.response.data.success)
                         console.log(err.response.data.message)
-                        alert(err.response.data.message)
+                        // alert(err.response.data.message)
                         this.response.success = false
                         this.response.alert = err.response.data.message
                         this.booking.status = false
@@ -359,28 +378,10 @@ const app = Vue.createApp({
         }
     },
     computed: {
-        renderBookingRange() {
-            //? reset booking data
-            this.booking.dateRange = []
-            this.booking.normalDay = 0
-            this.booking.holiday = 0
-            //? render new booking data
-            for (let i = new Date(this.booking.dateFrom).getTime(); i < new Date(this.booking.dateTo).getTime() + 1000 * 60 * 60 * 24; i += 1000 * 60 * 60 * 24) {
-                this.booking.dateRange.push(this.dateFormat(new Date(i)))
-            }
-            let daily = this.booking.dateRange.filter((date, i) => i < this.booking.dateRange.length - 1)
-            daily.forEach(date => {
-                if (1 <= new Date(date).getDay() && new Date(date).getDay() <= 4) {
-                    this.booking.normalDay++
-                } else {
-                    this.booking.holiday++
-                }
-            });
-        },
-        bookingPrice() {
-            this.booking.price = this.toCurrency(this.booking.normalDay * this.roomItem.room[0].normalDayPrice + this.booking.holiday *
-                this.roomItem.room[0].holidayPrice)
-        },
+        price() {
+            console.log("price");
+            return this.toCurrency(this.booking.normalDay * this.roomItem.room[0].normalDayPrice + this.booking.holiday * this.roomItem.room[0].holidayPrice)
+        }
     },
     watch: {
         //? ---------- modal control ----------
@@ -399,6 +400,15 @@ const app = Vue.createApp({
         "booking.phoneNumber"() {
             this.checkPhone()
         },
+        "booking.dateFrom"() {
+            this.getDateRange()
+        },
+        "booking.dateTo"() {
+            this.getDateRange()
+        },
+    },
+    updated() {
+        console.log('updated')
     },
     mounted() {
         this.getRoomsData()
