@@ -80,6 +80,30 @@ body {
         'Open Sans', 'Helvetica Neue', sans-serif, serif;
 }
 
+/*? ---------- Scrollbar  ---------- */
+/* width */
+::-webkit-scrollbar {
+    width: 0.75rem;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    border-radius: 0.5rem;
+    background: var(--color-primary);
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: var(--color-primary-variant);
+}
+
+
+/*? ---------- Scrollbar  ---------- */
 /*? ---------- ---------- header ---------- ---------- */
 /*? ---------- ---------- header ---------- ---------- */
 /*? ---------- ---------- header ---------- ---------- */
@@ -269,13 +293,13 @@ main .title::after, main .title::before {
 .series-list {
     width: 100%;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
     flex-direction: column;
     flex-wrap: wrap;
 }
 
-.series {
+.series-item {
     width: 100%;
     height: 45vw;
     background-position: center 75%;
@@ -356,7 +380,7 @@ main .title::after, main .title::before {
 }
 
 .series-info:hover::before {
-    opacity: 100;
+    opacity: 1;
 }
 
 .series-info:hover button {
@@ -1272,21 +1296,13 @@ main .title::after, main .title::before {
     width: 100%;
 }
 
-small {
+.booking-caution {
     font-size: 0.75rem;
     text-align: center;
     line-height: 1rem;
 }
 
-small span {
-    white-space: nowrap;
-}
-
 /*? -----   Booking Form End ----- */
-
-
-
-
 /*? ----------  roompage End  ---------- */
 /*? ---------- ---------- ---------- footer ---------- ---------- ---------- */
 /*? ---------- ---------- ----- footer ----- ---------- ---------- */
@@ -1370,6 +1386,52 @@ footer .contact li {
         max-width: 960px;
     }
 
+    /* ? Index.html */
+    .series-list {
+        flex-direction: row;
+    }
+
+    .series-item {
+        width: 25%;
+        height: 45vw;
+        max-height: 50vh;
+        background-position: center 75%;
+        background-size: cover;
+        margin-bottom: 3rem;
+    }
+
+    .series-info {
+        background: linear-gradient(to bottom,
+                hsla(0, 0%, 100%, 0),
+                hsla(0, 0%, 100%, 0.75)75%,
+                hsla(0, 0%, 100%, 1));
+        justify-content: flex-end;
+        align-items: center;
+        padding: 2rem;
+        /* padding-bottom: 2rem; */
+    }
+
+    .series-info h2, .series-info p {
+        width: 100%;
+        padding-right: 0;
+        padding-left: 0;
+    }
+
+    .series-info button {
+        width: 100%;
+        margin: 0;
+        /* margin-right: 2rem;
+        margin-left: 2rem; */
+    }
+
+    .series-info::before {
+        background: linear-gradient(to bottom,
+                hsla(225, 20%, 20%, 0),
+                hsla(225, 20%, 20%, 0.75)75%,
+                hsla(225, 20%, 20%, 1));
+    }
+
+    /* ? Room.html */
     .modal-main, .response-side {
         width: calc(100%/12*8);
     }
@@ -1416,6 +1478,15 @@ footer .contact li {
         margin-bottom: 1rem;
         /* margin-right: 0.25rem;
         margin-left: 0.25rem; */
+    }
+
+    /* ? Room.html End */
+    footer {
+        height: auto;
+    }
+
+    footer .container {
+        justify-content: space-around;
     }
 }
 

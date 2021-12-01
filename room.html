@@ -387,7 +387,7 @@
                                         </span>
                                     </label>
                                     <input type="text" name="name" id="name" v-model="booking.name" @blur="checkNamne"
-                                        required>
+                                        placeholder="請輸入姓名" required>
 
                                     <label for="phone">
                                         手機號碼
@@ -420,7 +420,7 @@
                                         確認送出
                                     </button>
                                 </div>
-                                <small>
+                                <small class="booking-caution">
                                     此預約系統僅預約功能，
                                     <span>
                                         並不會對您進行收費。
@@ -447,7 +447,7 @@
                                     <h3>
                                         預約<span v-if="response.success">成功</span><span v-else>失敗</span>
                                     </h3>
-                                    <p class="response-time">預約時間： <span> {{response.time }}</span></p>
+                                    <p class="response-time">預約時間： <span> {{response.time}}</span></p>
                                     <template v-if="response.success">
                                         <ul class="response-info">
                                             <li> 預約客房：<span> {{response.data.room}}</span></li>

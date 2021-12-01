@@ -114,7 +114,7 @@ const app = Vue.createApp({
                 success: true,
                 alert: "",
             },
-            showModal: true,
+            showModal: false,
         }
     },
     methods: {
@@ -197,6 +197,23 @@ const app = Vue.createApp({
             // console.log(this.calendar.current.date);
             // console.log(this.calendar.next.date);
         },
+        getCalender() {
+            console.log("renderCalender");
+            const currentFirst = new Date(this.calendar.current.year, this.calendar.current.month, 1)
+            const nextFirst = new Date(this.calendar.next.year, this.calendar.next.month, 1)
+            const oneDay = 24 * 60 * 60 * 1000;
+            this.calendar.current.date = []
+            this.calendar.next.date = []
+            for (let i = 0; i < 35; i++) {
+                let currentDay = new Date(currentFirst.getTime() + oneDay * (i - currentFirst.getDay()))
+                let nextDay = new Date(nextFirst.getTime() + oneDay * (i - nextFirst.getDay()))
+                // console.log(this.dateFormat(currentDay), this.dateFormat(nextDay));
+                this.calendar.current.date.push(this.dateFormat(currentDay))
+                this.calendar.next.date.push(this.dateFormat(nextDay))
+            }
+            // console.log(this.calendar.current.date);
+            // console.log(this.calendar.next.date);
+        },
         //? ---------- ---------- Action ---------- ----------
         //? ---------- ---------- Action ---------- ----------
         //? ---------- ---------- Action ---------- ----------
@@ -261,6 +278,7 @@ const app = Vue.createApp({
                 this.calendar.next.month = 11
                 this.calendar.next.year--
             }
+            this.getCalender()
         },
         checkNamne() {
             // const isName = /^[a-zA-Z0-9]+$/;
@@ -359,23 +377,6 @@ const app = Vue.createApp({
                 }
             });
         },
-        renderCalender() {
-            console.log("renderCalender");
-            const currentFirst = new Date(this.calendar.current.year, this.calendar.current.month, 1)
-            const nextFirst = new Date(this.calendar.next.year, this.calendar.next.month, 1)
-            const oneDay = 24 * 60 * 60 * 1000;
-            this.calendar.current.date = []
-            this.calendar.next.date = []
-            for (let i = 0; i < 35; i++) {
-                let currentDay = new Date(currentFirst.getTime() + oneDay * (i - currentFirst.getDay()))
-                let nextDay = new Date(nextFirst.getTime() + oneDay * (i - nextFirst.getDay()))
-                // console.log(this.dateFormat(currentDay), this.dateFormat(nextDay));
-                this.calendar.current.date.push(this.dateFormat(currentDay))
-                this.calendar.next.date.push(this.dateFormat(nextDay))
-            }
-            // console.log(this.calendar.current.date);
-            // console.log(this.calendar.next.date);
-        },
         bookingPrice() {
             this.booking.price = this.toCurrency(this.booking.normalDay * this.roomItem.room[0].normalDayPrice + this.booking.holiday *
                 this.roomItem.room[0].holidayPrice)
@@ -403,6 +404,7 @@ const app = Vue.createApp({
         this.getRoomsData()
         this.getRoomsAllData()
         this.getToday()
+        this.getCalender()
     }
 })
 app.component("modal", {
