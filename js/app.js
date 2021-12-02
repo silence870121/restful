@@ -172,6 +172,7 @@ const app = Vue.createApp({
                 axios.get(hexAPI + 'room/' + roomID)
                     .then((res) => {
                         this.roomItem = res.data
+                        console.log(res.data);
                     })
             }
         },
@@ -276,7 +277,6 @@ const app = Vue.createApp({
                     this.booking.holiday++
                 }
             });
-
         },
         updateCalender(num) {
             this.calendar.current.month += num
@@ -379,7 +379,6 @@ const app = Vue.createApp({
     },
     computed: {
         price() {
-            console.log("price");
             return this.toCurrency(this.booking.normalDay * this.roomItem.room[0].normalDayPrice + this.booking.holiday * this.roomItem.room[0].holidayPrice)
         }
     },
@@ -388,11 +387,11 @@ const app = Vue.createApp({
         showModal() {
             if (this.showModal) {
                 document.documentElement.style.overflow = 'hidden'
-                return
+            } else {
+                document.documentElement.style.overflow = 'auto'
+                this.booking.formError.name = false
+                this.booking.formError.phoneNumber = false
             }
-            document.documentElement.style.overflow = 'auto'
-            this.booking.formError.name = false
-            this.booking.formError.phoneNumber = false
         },
         "booking.name"() {
             this.checkNamne()

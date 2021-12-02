@@ -54,6 +54,11 @@ img {
     height: auto;
 }
 
+button {
+    background-color: unset;
+    border: unset;
+}
+
 *, *::before, *::after {
     box-sizing: border-box;
 }
@@ -349,8 +354,7 @@ main .title::after, main .title::before {
     text-transform: uppercase;
     margin-right: 10%;
     color: unset;
-    border: unset;
-    background-color: unset;
+
     height: 0;
     overflow: hidden;
 }
@@ -630,6 +634,23 @@ main .title::after, main .title::before {
     text-align-last: left;
 }
 
+.room-search button {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    color: var(--color-primary);
+    font-size: 1.5rem;
+    cursor: pointer;
+    margin-bottom: 0.5rem;
+}
+
+.room-search svg {
+    color: var(--color-primary);
+    width: auto;
+    height: 100%;
+    padding: 0 0.5rem;
+}
+
 .room p {
     color: var(--color-secondary-variant);
     margin-bottom: 2rem;
@@ -744,8 +765,6 @@ main .title::after, main .title::before {
     font-size: 1.5rem;
     line-height: 1rem;
     color: var(--color-primary);
-    background-color: unset;
-    border: unset;
     cursor: pointer;
 }
 
@@ -800,8 +819,6 @@ main .title::after, main .title::before {
 .calendar-inner button {
     width: 2rem;
     height: 2rem;
-    background-color: unset;
-    border: unset;
     cursor: pointer;
     font-size: 1rem;
     padding: 0.25rem;
@@ -812,8 +829,12 @@ main .title::after, main .title::before {
 .calendar-inner li .disabled {
     color: var(--color-secondary-variant);
     opacity: 0.25;
-    background-color: unset;
     cursor: unset;
+}
+
+.calendar-inner .booking-booked {
+    color: var(--color-on-error);
+    background-color: var(--color-error);
 }
 
 .calendar-inner .booking-datefrom,
@@ -951,8 +972,6 @@ main .title::after, main .title::before {
 }
 
 .modal-default-button {
-    background-color: unset;
-    border: unset;
     width: 3rem;
     height: 3rem;
     font-size: 2rem;
@@ -1070,9 +1089,14 @@ main .title::after, main .title::before {
     width: 10rem;
     height: 10rem;
     font-size: 10rem;
-    margin-bottom: 3rem;
-    border: 5px solid var(--color-primary);
+    margin-bottom: 2rem;
+    /* border: 5px solid var(--color-primary); */
     border-radius: 50%;
+}
+
+.response-header i svg {
+    width: 100%;
+    height: 100%;
 }
 
 .response-header p {
