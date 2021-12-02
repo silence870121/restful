@@ -1389,6 +1389,10 @@ main .title::after, main .title::before {
     line-height: 1rem;
 }
 
+.booking-caution span {
+    white-space: nowrap;
+}
+
 /*? -----   Booking Form End ----- */
 /*? ----------  roompage End  ---------- */
 /*? ---------- ---------- ---------- footer ---------- ---------- ---------- */
