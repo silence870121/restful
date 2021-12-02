@@ -92,10 +92,14 @@ const app = Vue.createApp({
                 formError: {
                     name: false,
                     phoneNumber: false,
+                    dateFrom: false,
+                    dateTo: false,
                 },
                 alert: {
                     name: "",
                     phoneNumber: "",
+                    dateFrom: "",
+                    dateTo: "",
                 },
             },
             limit: {
@@ -115,6 +119,8 @@ const app = Vue.createApp({
                 alert: "",
             },
             showModal: false,
+            isLoading: false,
+            ispartLoading: false,
         }
     },
     methods: {
@@ -159,8 +165,12 @@ const app = Vue.createApp({
                     // console.log(res.data.items[0])
                     this.roomData = res.data.items
                     // console.log(this.roomData);
+                    setTimeout(() => {
+                        this.isLoading = false
+                    }, 500);
                 })
         },
+
         getRoomsData() {
             //? GET room.html/roomID=?
             // const locationURL = new URL(location.href)
@@ -173,6 +183,10 @@ const app = Vue.createApp({
                     .then((res) => {
                         this.roomItem = res.data
                         console.log(res.data);
+                        setTimeout(() => {
+                            this.isLoading = false
+                            this.ispartLoading = false
+                        }, 500);
                     })
             }
         },
@@ -328,6 +342,22 @@ const app = Vue.createApp({
                 this.booking.formError.phoneNumber = false
             }
         },
+        checkDateFrom() {
+            if (this.booking.phoneNumber == "") {
+                this.booking.formError.dateFrom = true
+                this.booking.alert.dateFrom = "請選擇入住日期 ! "
+            } else {
+                this.booking.formError.dateFrom = false
+            }
+        },
+        checkDateTo() {
+            if (this.booking.phoneNumber == "") {
+                this.booking.formError.dateTo = true
+                this.booking.alert.dateTo = "請選擇退房日期 ! "
+            } else {
+                this.booking.formError.dateTo = false
+            }
+        },
         sendBookingForm() {
             const hexAPI = 'https://challenge.thef2e.com/api/thef2e2019/stage6/'
             const roomID = new URL(location.href).searchParams.get('roomID')
@@ -339,8 +369,12 @@ const app = Vue.createApp({
                 date: this.booking.dateRange
             }
             this.checkNamne()
-            this.checkNamne()
-            if (!this.booking.formError.name && !this.booking.formError.phoneNumber) {
+            this.checkPhone()
+            this.checkDateFrom()
+            this.checkDateTo()
+            console.log(this.booking.dateRange);
+            if (!this.booking.formError.name && !this.booking.formError.phoneNumber && !this.booking.dateFrom == "" && !this.booking.dateTo == "") {
+                this.isLoading = true
                 axios.defaults.headers.common.Authorization = `Bearer ${token}`
                 axios.post(dataurl, data)
                     .then((res) => {
@@ -361,7 +395,11 @@ const app = Vue.createApp({
                         this.booking.phoneNumber = ""
                         this.booking.dateFrom = ""
                         this.booking.dateTo = ""
-                        this.booking.status = false
+                        this.booking.dateRange = []
+                        setTimeout(() => {
+                            this.booking.status = false
+                            this.isLoading = false
+                        }, 500);
                     })
                     .catch((err) => {
                         // console.log(err.request)
@@ -372,6 +410,9 @@ const app = Vue.createApp({
                         this.response.success = false
                         this.response.alert = err.response.data.message
                         this.booking.status = false
+                        setTimeout(() => {
+                            this.isLoading = false
+                        }, 500);
                     })
                 this.response.time = this.calendar.today + " " + new Date().toLocaleTimeString('en-US')
             }
@@ -391,6 +432,8 @@ const app = Vue.createApp({
                 document.documentElement.style.overflow = 'auto'
                 this.booking.formError.name = false
                 this.booking.formError.phoneNumber = false
+                this.booking.formError.dateFrom = false
+                this.booking.formError.dateTo = false
             }
         },
         "booking.name"() {
@@ -410,6 +453,7 @@ const app = Vue.createApp({
         console.log('updated')
     },
     mounted() {
+        this.isLoading = true
         this.getRoomsData()
         this.getRoomsAllData()
         this.getToday()

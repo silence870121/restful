@@ -52,12 +52,25 @@
     <!--! ---------- ---------- Modal Page ---------- ---------- -->
     <!--! ---------- ---------- Modal Page ---------- ---------- -->
     <div id="app">
+        <div class="loading" v-if="isLoading">
+            <svg version="1.1" id="L9" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                x="0px" y="0px" viewBox="0 0 100 100" enable-background="new 0 0 0 0" xml:space="preserve">
+                <path fill="currentColor"
+                    d="M73,50c0-12.7-10.3-23-23-23S27,37.3,27,50 M30.9,50c0-10.5,8.5-19.1,19.1-19.1S69.1,39.5,69.1,50">
+                    <animateTransform attributeName="transform" attributeType="XML" type="rotate" dur="1s"
+                        from="0 50 50" to="360 50 50" repeatCount="indefinite" />
+                </path>
+            </svg>
+            <strong> 讀取中 請稍候 ... </strong>
+        </div>
         <header class="roompage">
             <nav>
                 <div class="nav-bar">
                     <div class="container">
                         <div class="burger" @click="navBTN">
-                            .
+                            <div class="burger-bar"></div>
+                            <div class="burger-bar"></div>
+                            <div class="burger-bar"></div>
                         </div>
                         <h1 class="logo"><a href="./index.html">RESTful</a></h1>
                         <ul class="contact">
@@ -191,7 +204,7 @@
                         </ul>
                     </div>
                     <h3 class="room room-search">
-                        <button @click="getRoomsData">
+                        <button @click="getRoomsData();this.ispartLoading = true;">
                             空房查詢
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -199,6 +212,7 @@
                                     d="M2 12C2 14.3869 2.94821 16.6761 4.63604 18.364C6.32387 20.0518 8.61305 21 11 21C13.39 21 15.68 20.06 17.4 18.4L15.9 16.9C15.2702 17.5664 14.5104 18.0966 13.6676 18.4578C12.8248 18.819 11.9169 19.0036 11 19C4.76 19 1.64 11.46 6.05 7.05C10.46 2.64 18 5.77 18 12H15L19 16H19.1L23 12H20C20 9.61305 19.0518 7.32387 17.364 5.63604C15.6761 3.94821 13.3869 3 11 3C8.61305 3 6.32387 3.94821 4.63604 5.63604C2.94821 7.32387 2 9.61305 2 12V12Z"
                                     fill="currentColor" />
                             </svg>
+                            <span v-show="ispartLoading">查詢中...</span>
                         </button>
                     </h3>
                     <div class="room">
@@ -425,11 +439,21 @@
                                     <input type="text" name="phone" id="phone" v-model="booking.phoneNumber"
                                         @blur="checkPhone" placeholder="0000-000-000" required>
 
-                                    <label for="dateFrom">入住日期</label>
+                                    <label for="dateFrom">
+                                        入住日期
+                                        <span v-if="booking.formError.dateFrom" class="booking-alert">
+                                            {{booking.alert.dateFrom}}
+                                        </span>
+                                    </label>
                                     <input type="date" name="dateFrom" id="dateFrom" v-model="booking.dateFrom"
                                         :min="limit.dateFrom" required>
 
-                                    <label for="dateTo">退房日期</label>
+                                    <label for="dateTo">
+                                        退房日期
+                                        <span v-if="booking.formError.dateTo" class="booking-alert">
+                                            {{booking.alert.dateTo}}
+                                        </span>
+                                    </label>
                                     <input type="date" name="dateTo" id="dateTo" v-model="booking.dateTo"
                                         :min="limit.dateFrom" :max="limit.dateTo" required>
 
